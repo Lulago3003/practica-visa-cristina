@@ -14,74 +14,39 @@
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#0b1020;
-    --bg2:#131a31;
-    --panel:#16203a;
-    --panel2:#1d2a4a;
-    --gold:#e7b94e;
-    --gold2:#b88a2e;
-    --cream:#f4ecd6;
-    --green:#5fd07a;
-    --green2:#2f8a4c;
-    --red:#ff6b5e;
-    --red2:#c23a2e;
-    --amber:#ffc24d;
-    --ink:#0a0f1d;
-    --line:#3a4a73;
+    --bg:#0b1020;--bg2:#131a31;--panel:#16203a;--panel2:#1d2a4a;
+    --gold:#e7b94e;--gold2:#b88a2e;--cream:#f4ecd6;
+    --green:#5fd07a;--green2:#2f8a4c;--red:#ff6b5e;--red2:#c23a2e;--amber:#ffc24d;
+    --ink:#0a0f1d;--line:#3a4a73;
   }
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
   html{background:#05070f;-webkit-text-size-adjust:100%;text-size-adjust:100%}
   html,body{margin:0;padding:0}
   body{
-    font-family:'VT323',monospace;
-    background:#05070f;
-    color:var(--cream);
-    display:flex;
+    font-family:'VT323',monospace;background:#05070f;color:var(--cream);display:flex;
     padding:16px;
     padding-top:max(16px,env(safe-area-inset-top));
     padding-bottom:max(16px,env(safe-area-inset-bottom));
     padding-left:max(16px,env(safe-area-inset-left));
     padding-right:max(16px,env(safe-area-inset-right));
-    min-height:100vh;
-    min-height:100dvh;
-    image-rendering:pixelated;
-    overflow-x:hidden;
+    min-height:100vh;min-height:100dvh;image-rendering:pixelated;overflow-x:hidden;
   }
-  /* CRT scanlines */
-  body::after{
-    content:"";position:fixed;inset:0;pointer-events:none;z-index:99;
-    background:repeating-linear-gradient(transparent 0 2px, rgba(0,0,0,.10) 2px 4px);
-    mix-blend-mode:multiply;
-  }
+  body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:99;
+    background:repeating-linear-gradient(transparent 0 2px, rgba(0,0,0,.10) 2px 4px);mix-blend-mode:multiply}
   #app{width:100%;max-width:760px;margin:auto}
 
-  .screen{
-    background:linear-gradient(180deg,var(--bg) 0%, var(--bg2) 100%);
-    border:4px solid var(--gold);
-    box-shadow:0 0 0 4px var(--ink), 0 0 0 8px var(--gold2), 0 14px 0 8px rgba(0,0,0,.4);
-    padding:26px 24px;position:relative;
-  }
+  .screen{background:linear-gradient(180deg,var(--bg) 0%, var(--bg2) 100%);border:4px solid var(--gold);
+    box-shadow:0 0 0 4px var(--ink), 0 0 0 8px var(--gold2), 0 14px 0 8px rgba(0,0,0,.4);padding:26px 24px;position:relative}
 
-  /* Typography */
-  .title{font-family:'Press Start 2P',monospace;font-size:18px;line-height:1.5;color:var(--gold);
-    text-shadow:3px 3px 0 var(--ink);margin:0 0 14px}
+  .title{font-family:'Press Start 2P',monospace;font-size:18px;line-height:1.5;color:var(--gold);text-shadow:3px 3px 0 var(--ink);margin:0 0 14px}
   .title.sm{font-size:13px}
   h2.title{font-size:13px}
   p{font-size:21px;line-height:1.25;margin:10px 0;letter-spacing:.4px}
   .small{font-size:18px;color:#aab6d6;line-height:1.3}
-  .tag{font-family:'Press Start 2P',monospace;font-size:9px;letter-spacing:1px;color:var(--ink);
-    background:var(--gold);padding:6px 9px;display:inline-block;margin-bottom:14px;
-    box-shadow:3px 3px 0 var(--ink)}
+  .tag{font-family:'Press Start 2P',monospace;font-size:9px;letter-spacing:1px;color:var(--ink);background:var(--gold);padding:6px 9px;display:inline-block;margin-bottom:14px;box-shadow:3px 3px 0 var(--ink)}
   .gold{color:var(--gold)}
-  .hl{color:#fff;background:var(--panel2);padding:0 4px;border-bottom:2px solid var(--gold)}
 
-  /* Buttons */
-  .btn{
-    font-family:'Press Start 2P',monospace;font-size:11px;line-height:1.4;
-    background:var(--panel2);color:var(--cream);border:3px solid var(--cream);
-    padding:13px 18px;cursor:pointer;letter-spacing:.5px;
-    box-shadow:4px 4px 0 var(--ink);transition:transform .05s, box-shadow .05s;
-  }
+  .btn{font-family:'Press Start 2P',monospace;font-size:11px;line-height:1.4;background:var(--panel2);color:var(--cream);border:3px solid var(--cream);padding:13px 18px;cursor:pointer;letter-spacing:.5px;box-shadow:4px 4px 0 var(--ink);transition:transform .05s, box-shadow .05s}
   .btn:hover{background:#27406e}
   .btn:active{transform:translate(4px,4px);box-shadow:0 0 0 var(--ink)}
   .btn.go{background:var(--gold);color:var(--ink);border-color:var(--ink)}
@@ -91,7 +56,6 @@
   .row{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px;align-items:center}
   .spacer{flex:1}
 
-  /* Mission lines */
   .mission{background:#0a1326;border:3px solid var(--line);padding:14px 16px;margin:14px 0}
   .mline{display:flex;gap:10px;align-items:flex-start;margin:11px 0;font-size:20px;line-height:1.25}
   .mline .ic{font-size:22px;line-height:1;flex-shrink:0}
@@ -99,11 +63,9 @@
   .mline.secret b{color:var(--red)}
   .mline.rule b{color:var(--green)}
 
-  /* Sprites */
   .sprite{display:inline-block;line-height:0;image-rendering:pixelated}
   .sprite svg{display:block;image-rendering:pixelated}
 
-  /* Outfits */
   .outfit-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin:18px 0}
   .outfit{background:#0a1326;border:3px solid var(--line);padding:14px 10px 12px;text-align:center;cursor:pointer}
   .outfit:hover{border-color:var(--gold)}
@@ -112,72 +74,37 @@
   .outfit .hn{font-size:17px;color:#9fb0d6}
   .outfit .sprite{margin:0 auto}
 
-  /* Docs */
-  .doc{display:flex;gap:12px;align-items:center;background:#0a1326;border:3px solid var(--line);
-    padding:11px 13px;margin:9px 0;cursor:pointer;font-size:20px}
+  .doc{display:flex;gap:12px;align-items:center;background:#0a1326;border:3px solid var(--line);padding:11px 13px;margin:9px 0;cursor:pointer;font-size:20px}
   .doc:hover{border-color:var(--gold)}
   .doc.on{border-color:var(--green);background:#0e2417}
-  .doc .bx{width:22px;height:22px;border:3px solid #6b7aa6;flex-shrink:0;
-    display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Press Start 2P';font-size:9px}
+  .doc .bx{width:22px;height:22px;border:3px solid #6b7aa6;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Press Start 2P';font-size:9px}
   .doc.on .bx{background:var(--green2);border-color:#bff5cf}
   .doc b{color:var(--gold)}
 
-  /* Embassy booth */
   .booth{background:#0a1326;border:3px solid var(--line);padding:16px;position:relative;overflow:hidden}
-  .booth-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;
-    font-family:'Press Start 2P';font-size:8px;color:var(--gold);letter-spacing:1px}
-  .stage{display:flex;align-items:flex-end;justify-content:center;gap:14px;
-    background:linear-gradient(180deg,#26324f 0%,#1a2238 70%,#141a2c 100%);
-    border:3px solid #0a1326;padding:14px 10px 0;position:relative;min-height:150px}
-  .stage::before{content:"VENTANILLA 7";position:absolute;top:6px;left:50%;transform:translateX(-50%);
-    font-family:'Press Start 2P';font-size:7px;color:#cdd8f0;background:#0a1326;padding:4px 8px;border:2px solid var(--line)}
+  .booth-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-family:'Press Start 2P';font-size:8px;color:var(--gold);letter-spacing:1px}
+  .stage{display:flex;align-items:flex-end;justify-content:center;gap:14px;background:linear-gradient(180deg,#26324f 0%,#1a2238 70%,#141a2c 100%);border:3px solid #0a1326;padding:14px 10px 0;position:relative;min-height:150px}
+  .stage::before{content:"VENTANILLA 7";position:absolute;top:6px;left:50%;transform:translateX(-50%);font-family:'Press Start 2P';font-size:7px;color:#cdd8f0;background:#0a1326;padding:4px 8px;border:2px solid var(--line)}
   .counter{position:absolute;left:0;right:0;bottom:0;height:22px;background:#3a2c1c;border-top:3px solid #5a4730}
-  .glass{position:absolute;inset:34px 8px 22px 8px;border:2px solid rgba(180,200,255,.25);
-    background:rgba(150,190,255,.05);pointer-events:none}
-  .glass::after{content:"";position:absolute;top:0;left:18%;width:10%;height:100%;
-    background:linear-gradient(90deg,transparent,rgba(255,255,255,.10),transparent)}
+  .glass{position:absolute;inset:34px 8px 22px 8px;border:2px solid rgba(180,200,255,.25);background:rgba(150,190,255,.05);pointer-events:none}
+  .glass::after{content:"";position:absolute;top:0;left:18%;width:10%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.10),transparent)}
   .off-wrap{position:relative;z-index:2}
   .off-name{font-family:'Press Start 2P';font-size:7px;color:#cdd8f0;text-align:center;margin-top:4px}
 
-  /* Trust meter (pixel cells) */
   .trust{margin-top:12px}
   .trust-lbl{display:flex;justify-content:space-between;font-family:'Press Start 2P';font-size:8px;color:#aab6d6;margin-bottom:6px}
   .cells{display:flex;gap:3px}
   .cell{flex:1;height:14px;background:#0a1326;border:2px solid var(--line)}
   .cell.f{border-color:var(--ink)}
 
-  /* Dialogue box */
-  .dialog{background:#0a1326;border:3px solid var(--cream);box-shadow:4px 4px 0 var(--ink);
-    padding:14px 16px;margin-top:14px;position:relative}
+  .dialog{background:#0a1326;border:3px solid var(--cream);box-shadow:4px 4px 0 var(--ink);padding:14px 16px;margin-top:14px;position:relative}
   .dialog .who{font-family:'Press Start 2P';font-size:9px;color:var(--gold);margin-bottom:8px;letter-spacing:.5px}
   .dialog .qtxt{font-size:23px;line-height:1.25;color:#fff}
   .blink{animation:bk 1s steps(1) infinite;color:var(--gold)}
   @keyframes bk{50%{opacity:0}}
 
-  /* Mode toggle */
-  .modes{display:flex;gap:8px;margin:14px 0 6px}
-  .modes button{flex:1;font-family:'Press Start 2P';font-size:8px;line-height:1.5;padding:10px 6px;
-    background:#0a1326;color:#9fb0d6;border:3px solid var(--line);cursor:pointer}
-  .modes button.on{background:var(--gold);color:var(--ink);border-color:var(--ink)}
-
-  /* Options menu */
-  .opts{display:flex;flex-direction:column;gap:9px;margin:10px 0}
-  .opt{display:flex;gap:10px;align-items:flex-start;background:#0a1326;border:3px solid var(--line);
-    padding:12px 12px;cursor:pointer;font-size:21px;line-height:1.25;color:var(--cream);text-align:left;font-family:'VT323',monospace}
-  .opt:hover:not(:disabled){border-color:var(--gold);background:#10203c}
-  .opt .sel{font-family:'Press Start 2P';font-size:10px;color:var(--gold);opacity:0;flex-shrink:0;margin-top:2px}
-  .opt:hover:not(:disabled) .sel{opacity:1}
-  .opt .k{font-family:'Press Start 2P';font-size:9px;color:#7c8bb5;flex-shrink:0;margin-top:3px}
-  .opt:disabled{cursor:default}
-  .opt.pick.good{border-color:var(--green);background:#0e2417}
-  .opt.pick.mid{border-color:var(--amber);background:#241f0e}
-  .opt.pick.bad{border-color:var(--red);background:#240f0e}
-  .opt.revealgood{border-color:var(--green)}
-  .opt.dim{opacity:.45}
-
-  textarea{width:100%;min-height:96px;background:#0a1326;border:3px solid var(--line);color:var(--cream);
-    font-family:'VT323',monospace;font-size:21px;line-height:1.3;padding:12px;resize:vertical;
-    -webkit-appearance:none;appearance:none;border-radius:0}
+  .hint{font-size:17px;color:#7c8bb5;margin:10px 0 6px}
+  textarea{width:100%;min-height:92px;background:#0a1326;border:3px solid var(--line);color:var(--cream);font-family:'VT323',monospace;font-size:21px;line-height:1.3;padding:12px;resize:vertical;-webkit-appearance:none;appearance:none;border-radius:0}
   textarea:focus{outline:none;border-color:var(--gold)}
 
   .fb{margin-top:14px;border:3px solid var(--line);background:#0a1326;padding:13px 15px;font-size:20px;line-height:1.3}
@@ -187,22 +114,23 @@
   .fb .rk{font-family:'Press Start 2P';font-size:8px;letter-spacing:.5px;margin-bottom:7px;display:block}
   .fb.good .rk{color:var(--green)}.fb.mid .rk{color:var(--amber)}.fb.bad .rk{color:var(--red)}
   .fb .react{color:#fff;font-size:22px}
+  .coach{margin-top:8px}
   .model{margin-top:10px;border:2px dashed var(--green2);background:#0c1f14;padding:10px 12px;font-size:19px}
   .model b{color:var(--green)}
 
-  /* Setup form */
   .grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 16px}
   @media(max-width:560px){.grid2{grid-template-columns:1fr}}
   .field{margin:11px 0}
   .field label{display:block;font-family:'Press Start 2P';font-size:8px;color:var(--gold);margin-bottom:6px;letter-spacing:.5px;line-height:1.5}
-  .field input{width:100%;background:#0a1326;border:3px solid var(--line);color:#fff;
-    font-family:'VT323';font-size:20px;padding:9px 11px;-webkit-appearance:none;appearance:none;border-radius:0}
+  .field input{width:100%;background:#0a1326;border:3px solid var(--line);color:#fff;font-family:'VT323';font-size:20px;padding:9px 11px;-webkit-appearance:none;appearance:none;border-radius:0}
   .field input:focus{outline:none;border-color:var(--gold)}
   .field .ex{font-size:16px;color:#7c8bb5;margin-top:3px}
 
-  /* Result */
-  .stamp{font-family:'Press Start 2P';font-size:20px;letter-spacing:2px;padding:14px 18px;display:inline-block;
-    border:4px solid;transform:rotate(-4deg);box-shadow:5px 5px 0 var(--ink);margin:10px 0}
+  .modes{display:flex;gap:8px;margin:6px 0}
+  .modes button{flex:1;font-family:'Press Start 2P';font-size:8px;line-height:1.5;padding:10px 6px;background:#0a1326;color:#9fb0d6;border:3px solid var(--line);cursor:pointer}
+  .modes button.on{background:var(--gold);color:var(--ink);border-color:var(--ink)}
+
+  .stamp{font-family:'Press Start 2P';font-size:20px;letter-spacing:2px;padding:14px 18px;display:inline-block;border:4px solid;transform:rotate(-4deg);box-shadow:5px 5px 0 var(--ink);margin:10px 0}
   .stamp.app{color:var(--green);border-color:var(--green)}
   .stamp.pen{color:var(--amber);border-color:var(--amber)}
   .stamp.den{color:var(--red);border-color:var(--red)}
@@ -218,15 +146,12 @@
   .tips{background:#0a1326;border:3px solid var(--line);padding:15px;margin:14px 0}
   .tips h3{font-family:'Press Start 2P';font-size:10px;color:var(--gold);margin:0 0 12px;line-height:1.5}
   .tips li{font-size:20px;line-height:1.3;margin:9px 0}
-  .pill{display:inline-block;font-family:'Press Start 2P';font-size:8px;color:var(--ink);background:#9fb0d6;padding:5px 8px;margin:3px 3px 0 0}
 
-  /* La fuente arcade no parte palabras: red de seguridad contra overflow */
-  .title,.btn,.tag,.dialog .who,.fb .rk,.tips h3,.field label,.modes button,
-  .off-name,.outfit .nm,.stamp,.sb .n,.pill{overflow-wrap:anywhere;max-width:100%}
+  .title,.btn,.tag,.dialog .who,.fb .rk,.tips h3,.field label,.modes button,.off-name,.outfit .nm,.stamp,.sb .n{overflow-wrap:anywhere;max-width:100%}
 
   @media(max-width:560px){
     .title{font-size:14px}.title.sm{font-size:11px}
-    p{font-size:19px}.opt{font-size:19px}.dialog .qtxt{font-size:20px}
+    p{font-size:19px}.dialog .qtxt{font-size:20px}
   }
   @media(max-width:400px){
     .screen{padding:18px 14px}
@@ -236,7 +161,7 @@
     .btn.sm{font-size:8px;padding:10px 9px}
     .modes button{font-size:7px;padding:9px 4px}
     .mline{font-size:18px}.mline .ic{font-size:19px}
-    .opt{font-size:18px}.dialog .qtxt{font-size:19px}
+    .dialog .qtxt{font-size:19px}
     .stamp{font-size:16px;letter-spacing:1px}
     .cats .nm{width:120px;font-size:14px}
     .row{gap:9px}
@@ -260,20 +185,20 @@ const FALLBACK = {
   nombre:"Cristina", pais:"Panamá", ciudadOrigen:"La Chorrera",
   ocupacion:"mi trabajo", tiempoOcup:"varios años",
   visita:"mi mamá", ciudadUS:"Nueva Jersey", duracion:"dos semanas",
-  alojamiento:"en casa de una amiga de la familia", pago:"yo, con mis ahorros",
+  alojamiento:"en casa de la pareja de mi mamá", pago:"yo, con mis ahorros",
   vivesCon:"mi abuela y mi tío"
 };
 function val(k){ return (PROFILE[k] && PROFILE[k].trim()) ? PROFILE[k].trim() : FALLBACK[k]; }
 function fills(s){ return s.replace(/\{(\w+)\}/g,(_,k)=>val(k)); }
 
 /* ================================================================
-   PIXEL SPRITES (SVG de rects, crisp)
+   PIXEL SPRITES
    ================================================================ */
 function spriteSVG(rects,size,cssw){
   const body=rects.map(r=>`<rect x="${r[0]}" y="${r[1]}" width="${r[2]}" height="${r[3]}" fill="${r[4]}"/>`).join("");
   return `<span class="sprite"><svg width="${cssw}" height="${cssw}" viewBox="0 0 ${size} ${size}" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg">${body}</svg></span>`;
 }
-/* Cristina (bust 24x24). cMain/cShad = color del outfit */
+/* Cristina (piel negra). cMain/cShad = color del outfit */
 function cristinaSVG(cMain,cShad,cssw){
   const hair="#1d130d",hairD="#2a1810",skin="#6e4327",skinS="#54331d",eye="#140c08",
         scl="#f1e8d6",mouth="#8a463a",collar="#f7f0e2";
@@ -294,7 +219,7 @@ function cristinaSVG(cMain,cShad,cssw){
   ];
   return spriteSVG(r,24,cssw);
 }
-/* Oficial (bust 24x24) con expresión por mood */
+/* Oficial con expresión por mood */
 function officerSVG(mood,cssw){
   const hair="#9aa0a6",hairD="#787d84",skin="#e6b48c",skinS="#d29c74",eye="#22303f";
   const navy="#16263f",gold="#cba24c",white="#f2efe6",mouth="#9c5040";
@@ -315,262 +240,142 @@ function officerSVG(mood,cssw){
   if(mood==="happy") f=[[8,7,3,1,hairD],[13,7,3,1,hairD],[9,15,6,1,mouth],[8,14,1,1,mouth],[15,14,1,1,mouth]];
   else if(mood==="neutral") f=[[8,7,3,1,hairD],[13,7,3,1,hairD],[9,15,6,1,mouth]];
   else if(mood==="doubt") f=[[8,6,3,1,hairD],[13,8,3,1,hairD],[10,15,3,1,mouth]];
-  else f=[[8,7,2,1,hairD],[10,8,2,1,hairD],[14,7,2,1,hairD],[12,8,2,1,hairD],[9,15,6,1,mouth],[8,16,1,1,mouth],[15,16,1,1,mouth]]; // angry
+  else f=[[8,7,2,1,hairD],[10,8,2,1,hairD],[14,7,2,1,hairD],[12,8,2,1,hairD],[9,15,6,1,mouth],[8,16,1,1,mouth],[15,16,1,1,mouth]];
   return spriteSVG(base.concat(f),24,cssw);
 }
 
 /* ================================================================
-   BANCO DE PREGUNTAS (basado en entrevistas B1/B2 reales)
+   BANCO DE PREGUNTAS — respuesta libre.
+   want = ideas que una buena respuesta toca | avoid = banderas rojas
+   must = la respuesta DEBE incluir alguna de estas | model = respuesta ideal
+   coach = qué hace fuerte tu respuesta y qué evitar (para ESTA pregunta)
    ================================================================ */
 const QUESTIONS = [
 { cat:"proposito", key:true,
   q:"Buenos días. ¿Cuál es el motivo de su viaje a Estados Unidos?",
-  keywords:["mundial","fútbol","futbol","turismo","conocer","partidos","vacaciones"],
-  options:[
-    {text:"Voy como turista al Mundial de fútbol. Me quedo {duracion} y regreso a {pais}.", rating:"good",
-     feedback:"Coartada perfecta: turismo claro y TEMPORAL (el Mundial termina y vuelves). No menciones a tu mamá por tu cuenta. OJO: si te preguntan directo por familia, di la verdad."},
-    {text:"Voy a visitar a {visita}, que vive en {ciudadUS}.", rating:"bad",
-     feedback:"Revelar de entrada que tu mamá vive allá enciende la alarma de inmigración. No mientas, pero tampoco lo ofrezcas tú: lidera con el Mundial."},
-    {text:"A ver el Mundial.", rating:"mid",
-     feedback:"Buena coartada, pero muy seca. Agrega cuánto tiempo te quedas y que regresas. Y prepárate: lo siguiente será '¿tienes entradas?'."}
-  ]},
+  want:["mundial","fútbol","futbol","turismo","turista","partido","vacacion","conocer","regres","vuelv","semana"],
+  avoid:["buscar oportunidad","mejor vida","ver como me va","ver cómo me va","conseguir trabajo","buscar trabajo","mi mamá vive","mi mama vive"],
+  model:"Voy como turista al Mundial de fútbol. Me quedo {duracion} y regreso a {pais}.",
+  coach:"Lidera con el Mundial: es un turismo claro y temporal (termina y regresas). No menciones a tu mamá por iniciativa propia. Nunca uses palabras de 'oportunidad' o trabajo." },
+
 { cat:"proposito", key:true,
-  q:"El Mundial, ¿eh? ¿A qué partidos o ciudades piensa ir?",
-  keywords:["partido","partidos","entradas","boletos","estadio","ciudad","tengo"],
-  options:[
-    {text:"Tengo entradas para [partido/ciudad]; aquí está la confirmación.", rating:"good",
-     feedback:"Entradas concretas + confirmación a la mano = tu coartada es real y verificable. Esto sostiene toda tu historia."},
-    {text:"A los que pueda, todavía no compro nada.", rating:"bad",
-     feedback:"Sin entradas, el 'Mundial' suena a pretexto y el oficial lo nota al instante. Compra las entradas ANTES de la cita."},
-    {text:"Todavía estoy viendo disponibilidad.", rating:"mid",
-     feedback:"Si el Mundial es tu razón principal, ten los partidos/ciudades definidos y lleva el comprobante."}
-  ]},
-{ cat:"proposito",
-  q:"¿Ya compró las entradas para los partidos?",
-  keywords:["sí","si","compré","compre","entradas","confirmación"],
-  options:[
-    {text:"Sí, ya las compré, tengo la confirmación impresa.", rating:"good",
-     feedback:"Prueba sólida de que el viaje es real y con propósito turístico claro."},
-    {text:"No, las compro cuando llegue allá.", rating:"bad",
-     feedback:"Comprar todo al llegar debilita tu coartada. Llévalas listas como respaldo."},
-    {text:"Estoy en proceso de comprarlas.", rating:"mid",
-     feedback:"Mejor tenerlas listas. Si no, lleva el comprobante del intento o la reserva."}
-  ]},
+  q:"El Mundial... ¿a qué partidos piensa ir y ya tiene las entradas?",
+  want:["partido","entrada","entradas","boleto","compré","compre","confirmación","confirmacion","estadio","ciudad","tengo"],
+  avoid:["no he comprado","cuando llegue","allá las compro","alla las compro","a los que pueda","todavía no","todavia no"],
+  model:"Tengo entradas para [partido] en [ciudad]; ya las compré y traigo la confirmación.",
+  coach:"Sé concreta: nombra partidos o ciudad y di que YA tienes las entradas. Si el Mundial es tu motivo, tienes que poder sostenerlo con detalles y comprobantes reales." },
+
 { cat:"tiempo", key:true,
-  q:"¿Cuánto tiempo piensa quedarse?",
-  keywords:["semanas","días","dias","dos","tres","duracion","regreso"],
-  options:[
-    {text:"{duracion}. Mi vuelo de regreso ya está reservado.", rating:"good",
-     feedback:"Estancia corta y específica + vuelo de vuelta = señal fuerte de retorno."},
-    {text:"No sé, depende de cómo me sienta allá.", rating:"bad",
-     feedback:"Estancia indefinida = posible inmigrante. Siempre da un periodo corto y concreto."},
-    {text:"Como un mes, más o menos.", rating:"mid",
-     feedback:"Impreciso. Da fechas exactas y menciona que el vuelo de vuelta ya está comprado."}
-  ]},
-{ cat:"tiempo",
-  q:"¿Tiene boleto de regreso?",
-  keywords:["sí","si","vuelo","boleto","regreso","reservado","ida y vuelta"],
-  options:[
-    {text:"Sí, compré ida y vuelta. Regreso al terminar {duracion}.", rating:"good",
-     feedback:"El boleto de vuelta es de las pruebas más fuertes de que regresas."},
-    {text:"Solo compré la ida por ahora.", rating:"bad",
-     feedback:"Comprar solo la ida es una bandera roja clásica. Compra ida y vuelta antes de la entrevista."},
-    {text:"Lo compro cuando me den la visa.", rating:"mid",
-     feedback:"Entendible por costo, pero ten un itinerario con fecha de regreso clara para mencionar."}
-  ]},
+  q:"¿Cuánto tiempo se va a quedar y cuándo regresa?",
+  want:["semana","semanas","días","dias","regreso","vuelvo","vuelo","reservado"],
+  avoid:["no sé","no se","depende","indefinido","el tiempo que","ver cuánto","ver cuanto"],
+  model:"{duracion}. Tengo el vuelo de regreso ya reservado.",
+  coach:"Da un periodo corto y exacto y menciona tu vuelo de regreso. Nada de 'depende' ni estancias abiertas: eso sugiere que te quieres quedar." },
+
 { cat:"alojamiento", key:true,
-  q:"¿Dónde se va a quedar?",
-  keywords:["casa","dirección","direccion","quedo","pareja","invitación","invitacion"],
-  options:[
-    {text:"{alojamiento}, en {ciudadUS}. Tengo la dirección y la carta de invitación.", rating:"good",
-     feedback:"Es la verdad: dila con calma y ten la dirección + carta de invitación listas. Luego reafirma que es solo por la visita y que regresas."},
-    {text:"En casa de alguien que conocí por internet.", rating:"bad",
-     feedback:"Quedarte con un casi-desconocido enciende alarmas. Tu caso real es mejor: una persona conocida de tu familia."},
-    {text:"Todavía no lo decidimos bien.", rating:"bad",
-     feedback:"Sin lugar definido = sospechoso. Debes saber exactamente dónde vas a dormir."}
-  ]},
+  q:"¿Dónde se va a hospedar?",
+  want:["casa","dirección","direccion","invitación","invitacion","tengo la dirección","nueva jersey"],
+  avoid:["no sé","no se","todavía no","todavia no","conocí por internet","conoci por internet","un hotel cualquiera"],
+  model:"{alojamiento}, en {ciudadUS}. Tengo la dirección y la carta de invitación.",
+  coach:"Ten la dirección y la carta de invitación listas, y dilo con seguridad. Saber exactamente dónde dormirás transmite que el viaje es real y organizado." },
+
 { cat:"alojamiento", key:true, tricky:true,
-  q:"¿Y quién es la persona en cuya casa se va a quedar?",
-  keywords:["pareja","mamá","mama","conozco","invitada","temporal","regreso","unos días"],
-  options:[
-    {text:"Es la pareja de mi mamá. Me reciben unos días como invitada y luego regreso a {pais}.", rating:"good",
-     feedback:"Te preguntan directo: toca la verdad. Admítelo con naturalidad y al instante reafirma que es temporal y que regresas. Honestidad + ancla."},
-    {text:"Un amigo de la familia, nada más.", rating:"mid",
-     feedback:"Es una verdad a medias. Si indagan y ven que es la pareja de tu mamá, parecerá que ocultabas algo. Mejor sé clara y compensa con tus lazos en Panamá."},
-    {text:"Prefiero no dar detalles de eso.", rating:"bad",
-     feedback:"Evadir sobre con quién te quedas es muy mala señal. Responde claro: la pareja de mi mamá; y refuerza que regresas."}
-  ]},
-{ cat:"alojamiento",
-  q:"¿Me da la dirección donde se hospedará?",
-  keywords:["dirección","direccion","calle","ciudad","tengo","apunté"],
-  options:[
-    {text:"Sí, la tengo apuntada aquí, se la muestro.", rating:"good",
-     feedback:"Tener la dirección a la mano demuestra organización y honestidad."},
-    {text:"No me la sé de memoria.", rating:"mid",
-     feedback:"Llévala anotada o en el teléfono. No saber dónde duermes se ve improvisado."},
-    {text:"Llego y veo.", rating:"bad",
-     feedback:"Inaceptable. Debes saber tu alojamiento exacto."}
-  ]},
+  q:"¿Y quién es esa persona con la que se va a quedar?",
+  want:["pareja","mamá","mama","invitada","unos días","unos dias","regreso","conozco","temporal"],
+  avoid:["prefiero no","no quiero decir","no le importa","no es asunto"],
+  model:"Es la pareja de mi mamá. Me reciben unos días como invitada y luego regreso a {pais}.",
+  coach:"Aquí toca la verdad. Dilo con naturalidad y, de inmediato, reafirma que es solo por unos días y que regresas. No lo evadas ni lo disfraces: si lo descubren, parecerá que ocultabas algo." },
+
 { cat:"familia", key:true, tricky:true,
-  q:"¿Tiene familiares en Estados Unidos?",
-  keywords:["sí","si","mamá","mama","verdad","honest"],
-  options:[
-    {text:"Sí, {visita} vive en {ciudadUS}. Pero mi vida está en {pais} y voy solo de visita por el Mundial.", rating:"good",
-     feedback:"Te preguntaron DIRECTO: aquí toca la verdad. Lo manejas perfecto: admites a tu mamá y de inmediato reafirmas que regresas. Honestidad + ancla."},
-    {text:"No, a nadie.", rating:"bad",
-     feedback:"NUNCA mientas. El consulado ya sabe que tu mamá está allá (y debe coincidir con tu DS-160). Una mentira = negación y problemas a futuro."},
-    {text:"Eh... bueno... sí, una tía lejana creo.", rating:"mid",
-     feedback:"Dudar y minimizar se ve peor que la verdad. Responde claro: sí, mi mamá; y refuerza que tu vida está en Panamá."}
-  ]},
+  q:"¿Tiene familiares viviendo en Estados Unidos?",
+  want:["sí","si","mamá","mama","nueva jersey","mi vida","panamá","panama","regreso","de visita"],
+  avoid:["no tengo familia","a nadie","ningún familiar","ningun familiar","nadie allá","nadie alla","no tengo a nadie"],
+  model:"Sí, mi mamá vive en {ciudadUS}. Pero mi vida está en {pais} y voy solo de visita por el Mundial.",
+  coach:"Te preguntan directo: la verdad SIEMPRE. Admite a tu mamá y, en la misma frase, reafirma que tu vida está en Panamá. Mentir aquí (decir 'a nadie') es negación segura: ellos ya lo saben." },
+
 { cat:"familia", key:true,
-  q:"Su mamá en Nueva Jersey... ¿qué estatus tiene y hace cuánto está allá?",
-  keywords:["residente","años","trabaja","legal","papeles"],
-  options:[
-    {text:"Es residente legal; lleva varios años trabajando allá con sus papeles en regla.", rating:"good",
-     feedback:"Directo y tranquilo. Que ella esté legal te ayuda: no representas riesgo migratorio. Conoce su estatus exacto antes de la cita."},
-    {text:"Prefiero no hablar de su situación.", rating:"bad",
-     feedback:"Evadir genera sospecha inmediata. Si está legal, dilo con calma; ya tienen esa info."},
-    {text:"No sé bien qué papeles tiene.", rating:"mid",
-     feedback:"Averigua el estatus de tu mamá, hace cuánto está y en qué trabaja. No saberlo se ve mal."}
-  ]},
-{ cat:"familia", key:true,
-  q:"Tengo entendido que su mamá viajó antes y regresó. ¿Por qué regresó?",
-  keywords:["familia","quería","queria","reglas","hijos","regresar"],
-  options:[
-    {text:"Volvió con su familia. Eso muestra que en mi familia respetamos las reglas de la visa.", rating:"good",
-     feedback:"Conviertes un detalle delicado en punto a favor: tu familia cumple y regresa. Muy bien manejado."},
-    {text:"No sé bien por qué regresó.", rating:"bad",
-     feedback:"No saberlo te hace ver poco preparada. Hablen en familia antes para tener la versión clara."},
-    {text:"Porque allá la cosa no era como esperaba.", rating:"mid",
-     feedback:"Honesto pero negativo. Enfócalo positivo: regresó por su familia y porque respeta las reglas."}
-  ]},
+  q:"¿Hace cuánto vive su mamá allá? ¿Qué documentos o estatus tiene?",
+  want:["años","tiempo","residente","papeles","trabaja","desde","estatus"],
+  avoid:["no sé","no se","prefiero no","no quiero hablar","no me consta"],
+  model:"Vive allá desde hace [tiempo]. Su estatus es [el real, dilo con honestidad].",
+  coach:"Antes de la entrevista averigua los datos REALES de tu mamá (hace cuánto está, qué papeles tiene) y dilos con calma. No los inventes ni los evadas; evadir genera más sospecha que la verdad." },
+
 { cat:"familia", key:true, tricky:true,
-  q:"Con su mamá allá... ¿no le tienta quedarse a vivir en Estados Unidos?",
-  keywords:["no","trabajo","vida","aquí","aqui","país","pais","regreso","vuelvo","carro"],
-  options:[
-    {text:"No. Mi vida está en {pais}: {ocupacion}, mi familia, mi carro, mi rutina. Voy de visita y regreso.", rating:"good",
-     feedback:"LA pregunta clave de tu caso. 'No' firme + razones concretas (trabajo, familia, carro). Perfecto."},
-    {text:"Uno nunca sabe, depende de las oportunidades.", rating:"bad",
-     feedback:"Acabas de admitir que considerarías quedarte. Es casi una negación automática. Siempre: 'No, vuelvo seguro.'"},
-    {text:"No.", rating:"mid",
-     feedback:"Correcto pero muy seco. Refuérzalo con tus razones para regresar."}
-  ]},
-{ cat:"familia",
-  q:"¿Con quién vive en Panamá?",
-  keywords:["abuela","tío","tio","vivo","familia","casa"],
-  options:[
-    {text:"Vivo con {vivesCon} en {ciudadOrigen}. Mi día a día y mi hogar están con ellos.", rating:"good",
-     feedback:"Vivir con tu familia es un ancla fuerte: tienes hogar y responsabilidades que te hacen regresar."},
-    {text:"Sola, por mi cuenta.", rating:"mid",
-     feedback:"No es malo, pero si vives con familia, dilo: refuerza tus lazos."},
-    {text:"Con nadie fijo, voy de un lado a otro.", rating:"bad",
-     feedback:"Sonar sin raíces fijas preocupa al oficial. Menciona un hogar estable."}
-  ]},
+  q:"Su mamá viajó a Estados Unidos y se quedó a vivir allá. ¿Cómo sé que usted no hará lo mismo?",
+  want:["trabajo","utp","abuela","tío","tio","carro","panamá","panama","regreso","vuelvo","distinto","mi vida","unos días"],
+  avoid:["uno nunca sabe","depende","tal vez","quizá me quede","quizas me quede","quiza me quede","oportunidad","no le puedo asegurar"],
+  model:"Entiendo su preocupación. Mi caso es distinto: tengo mi trabajo en {ocupacion}, vivo con {vivesCon}, tengo mi carro y toda mi vida en {pais}. Voy unos días al Mundial y regreso.",
+  coach:"La pregunta más difícil de tu caso. Reconoce la duda con calma y diferénciate con lazos CONCRETOS: tu trabajo, la familia con la que vives, tu carro. Jamás digas 'uno nunca sabe' ni dudes." },
+
+{ cat:"finanzas",
+  q:"¿A qué se dedica usted?",
+  want:["utp","trabajo","universidad","empleo","trabajo en","desde hace"],
+  avoid:["no trabajo","desempleada","ahorita nada","no estoy trabajando"],
+  model:"Trabajo en {ocupacion}. Pedí permiso para este viaje y regreso a trabajar.",
+  coach:"Di tu empleo concreto y que pediste permiso/vacaciones: eso muestra que tienes a qué volver. Si no trabajas, apóyate en estudios o en tus otros lazos." },
+
 { cat:"finanzas", key:true,
-  q:"¿Quién paga su viaje?",
-  keywords:["yo","ahorros","trabajo","propio","cuenta","utp"],
-  options:[
-    {text:"{pago}. Trabajo en {ocupacion} y tengo mis estados de cuenta aquí.", rating:"good",
-     feedback:"Independencia financiera + empleo + documentos = señal muy positiva."},
-    {text:"{visita} me manda todo desde allá.", rating:"bad",
-     feedback:"Que alguien en EE.UU. pague todo es sospechoso: sugiere dependencia y posible intención de quedarte."},
-    {text:"Entre {visita} y yo.", rating:"mid",
-     feedback:"Aceptable, pero deja claro qué parte pagas tú. Mientras más cubras tú, mejor."}
-  ]},
+  q:"¿Quién paga el viaje y con qué dinero?",
+  want:["yo","ahorros","trabajo","cuenta","mío","mia","propio","sueldo"],
+  avoid:["mi mamá paga","mi mama paga","mamá me manda","mama me manda","ella paga todo","me lo pagan allá"],
+  model:"{pago}. Trabajo en {ocupacion} y tengo mis estados de cuenta para mostrarlo.",
+  coach:"Lo ideal: lo pagas TÚ con tus ahorros o tu sueldo, y lo respaldas con estados de cuenta. Que tu mamá pague todo desde EE.UU. sugiere dependencia y levanta sospechas." },
+
 { cat:"finanzas",
-  q:"¿A qué se dedica?",
-  keywords:["trabajo","utp","universidad","empleo","trabajo en"],
-  options:[
-    {text:"Trabajo en {ocupacion}. Pedí permiso/vacaciones para este viaje.", rating:"good",
-     feedback:"Empleo concreto + permiso = tienes a qué regresar. Excelente ancla."},
-    {text:"Ahorita no estoy trabajando.", rating:"mid",
-     feedback:"Sin empleo pierdes un ancla clave. Si es tu caso, enfatiza familia, estudios o bienes (tu carro)."},
-    {text:"En varias cosas, depende del mes.", rating:"mid",
-     feedback:"Vago. Da una respuesta concreta: dónde trabajas y desde cuándo."}
-  ]},
-{ cat:"finanzas",
-  q:"¿Tiene bienes o ahorros a su nombre en Panamá?",
-  keywords:["carro","ahorros","cuenta","propiedad","sí","si","banco"],
-  options:[
-    {text:"Sí: tengo un carro a mi nombre, una cuenta de ahorros y mi empleo en {ocupacion}.", rating:"good",
-     feedback:"Carro + ahorros + empleo son anclas económicas potentes: cosas que te hacen volver."},
-    {text:"No tengo nada a mi nombre.", rating:"mid",
-     feedback:"Si no tienes bienes, refuerza otros lazos. Lleva estados de cuenta aunque sean modestos."},
-    {text:"Todo lo importante lo tiene mi mamá allá.", rating:"bad",
-     feedback:"Decir que tu patrimonio está en EE.UU. sugiere que tu centro de vida ya está allá. Evítalo."}
-  ]},
+  q:"¿Qué tiene a su nombre en Panamá? ¿Bienes, ahorros?",
+  want:["carro","ahorros","cuenta","propiedad","banco","a mi nombre"],
+  avoid:["nada","no tengo nada","todo lo tiene mi mamá","todo lo tiene mi mama"],
+  model:"Tengo un carro a mi nombre, una cuenta de ahorros y mi empleo en {ocupacion}.",
+  coach:"Menciona tus anclas económicas: el carro, ahorros, empleo. Son razones materiales y verificables para volver a Panamá." },
+
 { cat:"lazos", key:true,
-  q:"¿Qué garantiza que va a regresar a Panamá?",
-  keywords:["trabajo","familia","carro","vida","casa","regreso","utp"],
-  options:[
-    {text:"Mi trabajo en {ocupacion}, mi familia, mi carro y mi vida entera están en {pais}.", rating:"good",
-     feedback:"Varios lazos a la vez (lo ideal) + visita corta. Excelente."},
-    {text:"Mi palabra de que voy a volver.", rating:"bad",
-     feedback:"El oficial decide con pruebas, no con promesas. Da lazos concretos."},
-    {text:"Pues que tengo mi trabajo allá.", rating:"mid",
-     feedback:"Un solo lazo. Suma varios: familia, carro, estudios. Más anclas, más confianza."}
-  ]},
+  q:"¿Con quién vive usted en Panamá?",
+  want:["abuela","tío","tio","vivo","familia","hogar"],
+  avoid:["nadie","por mi cuenta","de un lado a otro","no fijo"],
+  model:"Vivo con {vivesCon} en {ciudadOrigen}. Mi hogar y mi día a día están con ellos.",
+  coach:"Vivir con tu familia es un ancla fuerte: tienes un hogar y responsabilidades esperándote. Dilo con naturalidad." },
+
 { cat:"lazos",
-  q:"¿Le dieron permiso en la UTP para este viaje?",
-  keywords:["sí","si","vacaciones","permiso","carta","autorizaron"],
-  options:[
-    {text:"Sí, tengo una carta de la UTP que confirma mi empleo y que regreso a trabajar.", rating:"good",
-     feedback:"Carta laboral con fecha de reincorporación es prueba potente de retorno."},
-    {text:"No avisé, simplemente me voy.", rating:"bad",
-     feedback:"Irte sin permiso sugiere que tu empleo no te importa o que no piensas volver."},
-    {text:"Creo que no hay problema.", rating:"mid",
-     feedback:"Consigue una carta de la UTP autorizando las vacaciones. Es de los documentos más útiles."}
-  ]},
+  q:"¿Qué planes tiene para cuando regrese de este viaje?",
+  want:["trabajo","utp","seguir","retomar","proyecto","estudio","rutina","compromiso"],
+  avoid:["ver qué sigue","ver que sigue","descansar y ya","no sé","no se","lo que venga"],
+  model:"Regreso directo a {ocupacion}; tengo mis compromisos y mi rutina esperándome.",
+  coach:"Tener algo concreto esperándote (tu trabajo, un proyecto, un compromiso) prueba que vuelves. Evita respuestas vagas tipo 'ver qué pasa'." },
+
 { cat:"historial",
-  q:"¿Ha viajado antes fuera de Panamá?",
-  keywords:["sí","si","no","viajé","viaje","países","paises"],
-  options:[
-    {text:"Sí, he viajado a [países] y siempre regresé en la fecha prevista.", rating:"good",
-     feedback:"Historial de viajes en regla genera confianza: respetas las visas y regresas."},
-    {text:"No, nunca he salido del país.", rating:"mid",
-     feedback:"Honesto, pero no suma. Compénsalo con anclas fuertes (empleo, familia, carro)."},
-    {text:"Sí, muchísimo por todo el mundo.", rating:"good",
-     feedback:"Buen historial, pero no exageres: solo afirma lo que sea verdad y puedas sustentar."}
-  ]},
-{ cat:"historial", key:true,
-  q:"¿Alguna vez le han negado una visa?",
-  keywords:["no","sí","si","negaron","cambió","cambio","primera"],
-  options:[
-    {text:"No, nunca me han negado una visa.", rating:"good",
-     feedback:"Si es cierto, dilo tranquila. Solo responde 'no' si de verdad nunca te han negado."},
-    {text:"No (cuando en realidad sí te negaron).", rating:"bad",
-     feedback:"NUNCA mientas sobre negaciones: están en su sistema. Mentir = negación segura y posible prohibición."},
-    {text:"Sí, hace [tiempo], pero ahora mi situación cambió porque [razón].", rating:"good",
-     feedback:"Si te negaron antes, esta es la respuesta correcta: honestidad + qué cambió a tu favor."}
-  ]},
-{ cat:"trampa", key:true, tricky:true,
-  q:"¿Planea trabajar en Estados Unidos?",
-  keywords:["no","turismo","mundial","solo","visita"],
-  options:[
-    {text:"No, de ninguna manera. Voy solo de turismo, al Mundial.", rating:"good",
-     feedback:"Un 'no' rotundo es obligatorio. La visa de turista no permite trabajar; cualquier duda aquí es fatal."},
-    {text:"Solo algo pequeño para cubrir gastos.", rating:"bad",
-     feedback:"Trabajar con visa de turista es ilegal. Admitirlo = negación inmediata."},
-    {text:"Si surge algo, lo vería.", rating:"bad",
-     feedback:"Dejar la puerta abierta a trabajar ya es motivo de negación. Debe ser un 'no' sin matices."}
-  ]},
+  q:"¿Ha viajado antes a otros países? ¿Regresó siempre a tiempo?",
+  want:["sí","si","viajé","viaje","regresé","regrese","a tiempo","no","primera vez"],
+  avoid:["me quedé de más","me quede de mas","sobrepasé","me pasé del tiempo"],
+  model:"Sí, viajé a [países] y siempre regresé en la fecha. (O, si es tu primer viaje: No, sería mi primera vez, pero mi vida está en Panamá.)",
+  coach:"Un buen historial de viajes ayuda mucho. Si nunca has viajado, no pasa nada: compénsalo recalcando tus lazos en Panamá." },
+
+{ cat:"historial",
+  q:"¿Le han negado alguna vez una visa, a Estados Unidos o a otro país?",
+  want:["no","nunca","sí","si","cambió","cambio","ahora"],
+  avoid:["creo que no","no me acuerdo"],
+  model:"No, nunca me han negado una visa. (Si sí: Sí, en [fecha], pero ahora mi situación cambió porque [razón].)",
+  coach:"Responde con la verdad: las negaciones quedan en su sistema. Si te negaron antes, dilo y explica qué cambió a tu favor. Mentir aquí se castiga muy fuerte." },
+
 { cat:"trampa", key:true,
-  q:"Para terminar: ¿por qué debería darle la visa?",
-  keywords:["mundial","regreso","trabajo","familia","carro","temporal","visita"],
-  options:[
-    {text:"Porque voy de turista al Mundial, por {duracion}, y vuelvo. Mi trabajo, mi familia y mi carro están en {pais}.", rating:"good",
-     feedback:"Resumiste tu caso en una frase: coartada clara + temporal + razones para volver. Cierre perfecto."},
-    {text:"Porque me lo merezco, llevo años soñando con ir.", rating:"bad",
-     feedback:"La visa no es un premio. El oficial necesita certeza de retorno, no de cuánto la deseas."},
-    {text:"Porque cumplo con los requisitos.", rating:"mid",
-     feedback:"Frío. Explica POR QUÉ cumples: lazos, plan corto, finanzas, intención temporal."}
-  ]}
+  q:"¿Piensa trabajar o estudiar en Estados Unidos durante el viaje?",
+  want:["turismo","mundial","visita","solo","de paseo"],
+  must:["no","para nada","nunca","jamás","jamas","de ninguna","ninguna manera"],
+  avoid:["algo pequeño","si surge","para cubrir gastos","un trabajito","quizá trabaje","tal vez trabaje"],
+  model:"No, de ninguna manera. Voy solo de turismo, al Mundial.",
+  coach:"La respuesta SIEMPRE es un 'no' rotundo. La visa de turista no permite trabajar ni estudiar; cualquier duda aquí te niega de inmediato." },
+
+{ cat:"trampa", key:true,
+  q:"Para terminar: ¿por qué debería aprobarle la visa?",
+  want:["mundial","turismo","regreso","trabajo","familia","carro","temporal","panamá","panama","unos días"],
+  avoid:["me lo merezco","llevo años soñando","es mi sueño","siempre quise"],
+  model:"Porque voy de turista al Mundial por {duracion} y regreso. Mi trabajo, mi familia y toda mi vida están en {pais}.",
+  coach:"Resume tu caso en una frase: propósito temporal (el Mundial) + razones para volver (trabajo, familia, carro). No apeles a que 'lo mereces' ni a un sueño." }
 ];
 
 const CAT_LABELS = {
   proposito:"Coartada / Mundial", tiempo:"Duración y regreso", alojamiento:"Alojamiento",
   familia:"Familia (tu mamá)", finanzas:"Finanzas", lazos:"Lazos con Panamá",
-  historial:"Historial de viajes", trampa:"Preguntas trampa"
+  historial:"Historial", trampa:"Preguntas trampa"
 };
 
 /* ================================================================
@@ -578,7 +383,7 @@ const CAT_LABELS = {
    ================================================================ */
 const STATE = {
   outfit:"blazer", questions:[], current:0, confidence:55,
-  score:{good:0,mid:0,bad:0}, catScore:{}, mode:"easy", answered:false, length:10
+  score:{good:0,mid:0,bad:0}, catScore:{}, answered:false, length:10
 };
 const OUTFITS = [
   {id:"blazer",  nm:"Saco/blazer", hn:"Formal, pro", v:"good", c:["#2b4470","#1b2c4d"],
@@ -593,9 +398,9 @@ const OUTFITS = [
 function outfitColors(){ const o=OUTFITS.find(x=>x.id===STATE.outfit)||OUTFITS[0]; return o.c; }
 
 const REACT = {
-  good:["Entiendo.","Muy bien.","De acuerdo.","Perfecto.","Anotado."],
-  mid:["Mmm... está bien.","Vale.","Ya veo.","Continuemos."],
-  bad:["¿En serio?","Eso no me convence.","No me cuadra.","Sea más específica.","Hmm."]
+  good:["Entiendo.","Muy bien.","De acuerdo.","Perfecto.","Anotado.","Me queda claro."],
+  mid:["Mmm... está bien.","Ya veo.","Vale.","Continuemos.","De acuerdo, sigamos."],
+  bad:["¿En serio?","Eso no me convence.","No me cuadra.","Sea más específica.","Hmm.","No le creo del todo."]
 };
 function faceFor(c){
   if(c>=75) return {mood:"happy", label:"El oficial asiente, convencido."};
@@ -604,19 +409,38 @@ function faceFor(c){
   return {mood:"angry", label:"El oficial frunce el ceño."};
 }
 function trustColor(c){ return c>=70?"var(--green)":c>=45?"var(--amber)":"var(--red)"; }
-
 function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 function pick(a){return a[Math.floor(Math.random()*a.length)];}
 function applyRating(r){
   STATE.score[r]++;
   if(r==="good") STATE.confidence=Math.min(100,STATE.confidence+13);
   else if(r==="bad") STATE.confidence=Math.max(0,STATE.confidence-16);
-  else STATE.confidence=Math.max(0,STATE.confidence-1);
+  else STATE.confidence=Math.max(0,STATE.confidence-2);
 }
 function recordCat(c,r){
   if(!STATE.catScore[c]) STATE.catScore[c]={good:0,total:0};
   STATE.catScore[c].total++;
   if(r==="good") STATE.catScore[c].good++; else if(r==="mid") STATE.catScore[c].good+=.5;
+}
+
+/* ================================================================
+   EVALUACIÓN DE RESPUESTA LIBRE (heurística)
+   ================================================================ */
+const GLOBAL_AVOID=["buscar oportunidad","mejores oportunidades","una mejor vida","mejor futuro alla",
+  "ver como me va","ver cómo me va","conseguir un trabajo","buscar un trabajo",
+  "uno nunca sabe","tal vez me quede","quizá me quede","quizas me quede","quiza me quede"];
+function evalAnswer(text,q){
+  const t=" "+text.toLowerCase().replace(/[.,;:¡!¿?\n]/g," ").replace(/\s+/g," ")+" ";
+  const words=text.trim().split(/\s+/).filter(Boolean).length;
+  const has=p=>t.includes(p);
+  if((q.avoid||[]).some(has)) return "bad";
+  if(GLOBAL_AVOID.some(has)) return "bad";
+  if(q.must && !q.must.some(m=>t.includes(" "+m))) return "bad";
+  const w=(q.want||[]).filter(has).length;
+  if(words<3) return "mid";
+  if(w>=2 && words>=5) return "good";
+  if(w>=1) return "mid";
+  return "mid";
 }
 
 /* ================================================================
@@ -638,7 +462,7 @@ function screenIntro(){
       <div class="mline secret"><span class="ic">🤫</span><span><b>OBJETIVO SECRETO:</b> Visitar a tu mamá en ${val("ciudadUS")}. <span class="small">(no lo reveles tú)</span></span></div>
       <div class="mline rule"><span class="ic">⚖️</span><span><b>REGLA DE ORO:</b> Nunca mientas. Si te preguntan directo por tu familia, di la verdad.</span></div>
     </div>
-    <p class="small">El oficial reacciona a cada respuesta: gana su <span class="gold">CONFIANZA</span> y consigue la visa. Pierde demasiada y... 214(b).</p>
+    <p class="small">Responde tú misma a cada pregunta del oficial, como en la entrevista real. Gana su <span class="gold">CONFIANZA</span> y consigue la visa. Piérdela y... 214(b).</p>
     <div class="row"><button class="btn go" onclick="screenSetup()">▶ EMPEZAR</button></div>
   `);
 }
@@ -647,7 +471,7 @@ function screenSetup(){
   render(`
     <span class="tag">PASO 1 · TUS DATOS</span>
     <h2 class="title sm">Personaliza tu partida</h2>
-    <p class="small">Edita lo que quieras: las "buenas respuestas" usarán TUS datos reales. Puedes saltarte este paso.</p>
+    <p class="small">Edita lo que quieras: la "respuesta modelo" usará TUS datos reales. Puedes saltarte este paso.</p>
     <div class="grid2">
       <div class="field"><label>Nombre</label><input id="f_nombre"><div class="ex">Cristina</div></div>
       <div class="field"><label>País</label><input id="f_pais"><div class="ex">Panamá</div></div>
@@ -657,7 +481,7 @@ function screenSetup(){
       <div class="field"><label>Ciudad EE.UU.</label><input id="f_ciudadUS"><div class="ex">Nueva Jersey</div></div>
       <div class="field"><label>Trabajo/estudio</label><input id="f_ocupacion"><div class="ex">la UTP en Panamá Pacífico</div></div>
       <div class="field"><label>Cuánto te quedas</label><input id="f_duracion"><div class="ex">dos semanas</div></div>
-      <div class="field"><label>Dónde te hospedas</label><input id="f_alojamiento"><div class="ex">casa de una amiga</div></div>
+      <div class="field"><label>Dónde te hospedas</label><input id="f_alojamiento"><div class="ex">casa de la pareja de mi mamá</div></div>
       <div class="field"><label>Quién paga</label><input id="f_pago"><div class="ex">yo, con mis ahorros</div></div>
     </div>
     <div class="row">
@@ -694,12 +518,7 @@ function goOutfit(){
   });
   showOutfitNote();
 }
-function selOutfit(id,el){
-  STATE.outfit=id;
-  document.querySelectorAll(".outfit").forEach(x=>x.classList.remove("sel"));
-  el.classList.add("sel");
-  showOutfitNote();
-}
+function selOutfit(id,el){STATE.outfit=id;document.querySelectorAll(".outfit").forEach(x=>x.classList.remove("sel"));el.classList.add("sel");showOutfitNote();}
 function showOutfitNote(){
   const o=OUTFITS.find(x=>x.id===STATE.outfit);
   const cls=o.v==="good"?"good":o.v==="mid"?"mid":"bad";
@@ -742,12 +561,12 @@ function goEmbassy(){
     <h2 class="title sm">Ventanilla 7</h2>
     <p>Pasaste la fila, el control y la espera. El altavoz suena:</p>
     <p class="gold" style="text-align:center;font-family:'Press Start 2P';font-size:11px;line-height:1.6">"VENTANILLA 7,<br>POR FAVOR."</p>
-    <p class="small">Mira a los ojos. Responde corto y directo. No inventes. La entrevista real dura 3–5 minutos.</p>
+    <p class="small">Mira a los ojos. Responde corto, claro y honesto. No inventes. La entrevista real dura 3–5 minutos.</p>
     <div class="field" style="max-width:340px">
       <label>¿Cuántas preguntas?</label>
       <div class="modes">
         <button id="L10" class="on" onclick="setLen(10,this)">CORTA · 10</button>
-        <button id="L16" onclick="setLen(16,this)">LARGA · 16</button>
+        <button id="L17" onclick="setLen(99,this)">TODAS · 17</button>
       </div>
     </div>
     <div class="row">
@@ -762,9 +581,12 @@ function setLen(n,b){STATE.length=n;document.querySelectorAll(".modes button").f
 function buildInterview(n){
   const keys=QUESTIONS.filter(q=>q.key);
   const rest=shuffle(QUESTIONS.filter(q=>!q.key));
-  let sel=shuffle(keys).slice(0,Math.min(keys.length,Math.ceil(n*0.6)));
-  for(const q of rest){if(sel.length>=n)break;sel.push(q);}
-  sel=sel.slice(0,n);
+  if(n>=QUESTIONS.length){ var sel=QUESTIONS.slice(); }
+  else{
+    var sel=shuffle(keys).slice(0,Math.min(keys.length,Math.ceil(n*0.6)));
+    for(const q of rest){if(sel.length>=n)break;sel.push(q);}
+    sel=sel.slice(0,n);
+  }
   const order={proposito:1,tiempo:2,alojamiento:3,familia:4,finanzas:5,lazos:6,historial:7,trampa:8};
   return shuffle(sel).sort((a,b)=>(order[a.cat]||5)-(order[b.cat]||5));
 }
@@ -773,7 +595,6 @@ function startInterview(){
   STATE.current=0;STATE.confidence=55;STATE.score={good:0,mid:0,bad:0};STATE.catScore={};
   renderQuestion();
 }
-
 function trustCells(c){
   const f=Math.round(c/10);let s="";
   for(let i=0;i<10;i++) s+=`<div class="cell${i<f?" f":""}" style="${i<f?`background:${trustColor(c)}`:""}"></div>`;
@@ -803,37 +624,17 @@ function renderQuestion(){
       <div class="qtxt">${fills(q.q)} <span class="blink">▶</span></div>
     </div>
 
-    <div class="modes">
-      <button class="${STATE.mode==='easy'?'on':''}" onclick="setMode('easy',this)">FÁCIL · ELEGIR</button>
-      <button class="${STATE.mode==='hard'?'on':''}" onclick="setMode('hard',this)">DIFÍCIL · ESCRIBIR</button>
+    <div id="ans">
+      <p class="hint">Tu respuesta (escríbela como la dirías en voz alta):</p>
+      <textarea id="fa" placeholder="Responde corto, claro y honesto..."></textarea>
+      <div class="row"><button class="btn green sm" onclick="submitAnswer()">RESPONDER ▶</button></div>
     </div>
-
-    <div id="ans"></div>
     <div id="fb"></div>
     <div class="row" id="nav"><button class="btn sm" onclick="confirmQuit()">SALIR</button></div>
   `);
-  if(STATE.mode==="easy") renderEasy(); else renderHard();
+  setTimeout(()=>{const fa=document.getElementById("fa");if(fa)fa.focus();},60);
 }
-function setMode(m,b){
-  STATE.mode=m;document.querySelectorAll(".modes button").forEach(x=>x.classList.remove("on"));b.classList.add("on");
-  if(STATE.answered)return;
-  if(m==="easy")renderEasy();else renderHard();
-}
-function renderEasy(){
-  const q=STATE.questions[STATE.current];
-  const opts=shuffle(q.options);
-  const a=document.getElementById("ans");
-  a.innerHTML=`<div class="opts">${opts.map((o,i)=>
-    `<button class="opt" data-i="${i}" onclick="pickOption(${i})"><span class="sel">▶</span><span class="k">${i+1}</span><span>${fills(o.text)}</span></button>`).join("")}</div>`;
-  a.dataset.opts=JSON.stringify(opts);
-  document.getElementById("fb").innerHTML="";
-}
-function renderHard(){
-  document.getElementById("ans").innerHTML=`
-    <textarea id="fa" placeholder="Escribe lo que responderías... corto y específico."></textarea>
-    <div class="row"><button class="btn green sm" onclick="submitFree()">RESPONDER</button></div>`;
-  document.getElementById("fb").innerHTML="";
-}
+
 function updateOfficer(){
   const f=faceFor(STATE.confidence);
   const s=document.getElementById("offSprite"),m=document.getElementById("offMood"),
@@ -843,57 +644,24 @@ function updateOfficer(){
   if(c)c.innerHTML=trustCells(STATE.confidence);
   if(p)p.textContent=STATE.confidence+"%";
 }
-function pickOption(i){
-  if(STATE.answered)return;STATE.answered=true;
-  const q=STATE.questions[STATE.current];
-  const opts=JSON.parse(document.getElementById("ans").dataset.opts);
-  const ch=opts[i];
-  applyRating(ch.rating);recordCat(q.cat,ch.rating);updateOfficer();
-  const gi=opts.findIndex(o=>o.rating==="good");
-  document.querySelectorAll(".opt").forEach((b,idx)=>{
-    b.disabled=true;
-    if(idx===i)b.classList.add("pick",ch.rating);
-    else if(idx===gi&&ch.rating!=="good")b.classList.add("revealgood");
-    else b.classList.add("dim");
-  });
-  let extra="";
-  if(ch.rating!=="good"&&gi>=0) extra=`<div class="model"><b>✓ La más fuerte era:</b> "${fills(opts[gi].text)}"</div>`;
-  showFB(ch.rating,pick(REACT[ch.rating]),ch.feedback,extra);
-  showNext();
-}
-function submitFree(){
+
+function submitAnswer(){
   if(STATE.answered)return;
-  const t=document.getElementById("fa").value.trim();
-  if(t.length<3){alert("Escribe algo primero.");return;}
+  const t=(document.getElementById("fa").value||"").trim();
+  if(t.length<2){alert("Escribe tu respuesta primero.");return;}
   STATE.answered=true;
   const q=STATE.questions[STATE.current];
-  const r=evalFree(t,q);
+  const r=evalAnswer(t,q);
   applyRating(r);recordCat(q.cat,r);updateOfficer();
   document.getElementById("fa").disabled=true;
-  const good=q.options.find(o=>o.rating==="good");
-  const extra=good?`<div class="model"><b>💡 Respuesta modelo:</b> "${fills(good.text)}"</div>`:"";
-  showFB(r,pick(REACT[r]),freeTip(r),extra);
+  const model=`<div class="model"><b>💡 Respuesta modelo:</b> "${fills(q.model)}"</div>`;
+  const coach=`<div class="coach">${fills(q.coach)}</div>`;
+  showFB(r,pick(REACT[r]),coach,model);
   showNext();
 }
-function evalFree(text,q){
-  const t=" "+text.toLowerCase()+" ";
-  const w=text.trim().split(/\s+/).length;
-  const hits=(q.keywords||[]).filter(k=>t.includes(k)).length;
-  const red=["oportunidad","quedarme","mejor vida","trabajar all","buscar trabajo","tal vez","quizá","quiza","ver cómo me va","ver como me va","no sé si","no se si"];
-  if(red.filter(r=>t.includes(r)).length>=1)return "bad";
-  if(w<4)return "mid";
-  if(hits>=2&&w>=6&&w<=70)return "good";
-  if(hits>=1)return "mid";
-  return "mid";
-}
-function freeTip(r){
-  if(r==="good")return "Buena respuesta: tocaste los puntos clave sin extenderte. Compárala con la modelo.";
-  if(r==="bad")return "Cuidado: usaste palabras que encienden alarmas ('oportunidad', 'quedarme', 'tal vez') o sonaste indecisa. Reformula hacia 'voy de visita y regreso'. Mira la modelo.";
-  return "Aceptable pero mejorable: sé más concreta (fechas, lugares) y deja claro que regresas. Fíjate en la modelo.";
-}
-function showFB(r,react,exp,extra=""){
+function showFB(r,react,coach,model){
   document.getElementById("fb").innerHTML=`<div class="fb ${r}"><span class="rk">REACCIÓN DEL OFICIAL</span>
-    <div class="react">"${react}"</div><div style="margin-top:8px">${exp}</div>${extra}</div>`;
+    <div class="react">"${react}"</div>${coach}${model}</div>`;
 }
 function showNext(){
   const last=STATE.current===STATE.questions.length-1;
@@ -908,10 +676,10 @@ function screenResult(){
   let stamp,cls,title,msg;
   if(conf>=70&&bad<=1){stamp="VISA APROBADA";cls="app";
     title="\"Su visa fue aprobada. Buen viaje.\"";
-    msg="¡Lo lograste, "+val("nombre")+"! Mantuviste la coartada del Mundial, mostraste lazos fuertes con Panamá y no caíste en banderas rojas. Esa es la actitud.";}
+    msg="¡Lo lograste, "+val("nombre")+"! Mantuviste la coartada del Mundial, fuiste honesta y mostraste lazos fuertes con Panamá. Esa es la actitud.";}
   else if(conf<40||bad>=4){stamp="VISA NEGADA";cls="den";
     title="\"Lo siento, no califica.\" (formulario 214(b))";
-    msg="Varias respuestas no convencieron al oficial. Es práctica: repasa lo marcado en rojo, enfócate en que REGRESAS, e inténtalo otra vez.";}
+    msg="Varias respuestas no convencieron al oficial. Es práctica: repasa el coaching de cada pregunta, enfócate en que REGRESAS, e inténtalo otra vez.";}
   else{stamp="EN REVISIÓN";cls="pen";
     title="\"Su caso necesita revisión adicional.\"";
     msg="Estuviste cerca, pero algunas respuestas dejaron dudas. Afina lo amarillo/rojo y prueba de nuevo. Vas por buen camino.";}
@@ -935,14 +703,14 @@ function screenResult(){
     <h2 class="title sm">Desempeño por tema</h2>
     <div class="cats">${cats}</div>
     <div class="tips">
-      <h3>★ REGLAS DE ORO</h3>
+      <h3>★ CLAVES DE TU CASO</h3>
       <ul>
-        <li>Respuestas <b>cortas y directas</b>. Responde solo lo que te preguntan.</li>
-        <li>Demuestra que <b>vas a volver</b>: trabajo (UTP), familia, carro. Varios lazos, no uno.</li>
-        <li><b>Nunca mientas.</b> Todo está en su sistema y debe coincidir con tu DS-160.</li>
+        <li>Responde <b>corto, claro y honesto</b>. Solo lo que te preguntan.</li>
+        <li><b>Lo más difícil:</b> tu mamá se quedó en EE.UU. El oficial lo ve como riesgo. Tu defensa: lazos fuertes con Panamá (UTP, vives con abuela y tío, carro) + viaje corto por el Mundial.</li>
+        <li><b>Nunca mientas.</b> Sobre tu mamá, dónde te quedas o negaciones previas. Todo está en su sistema y debe coincidir con tu DS-160.</li>
         <li>La <b>coartada del Mundial</b> solo sirve si es real: lleva tus entradas.</li>
-        <li>Con tu <b>mamá</b>: no la menciones tú; pero si te preguntan, di la verdad y reafirma que regresas.</li>
-        <li>Evita: "oportunidades", "quedarme", "ver cómo me va", "tal vez".</li>
+        <li>No menciones a tu mamá tú misma; pero si preguntan, di la verdad y reafirma que regresas.</li>
+        <li>Evita: "oportunidades", "quedarme", "ver cómo me va", "uno nunca sabe".</li>
       </ul>
     </div>
     <div class="row">
@@ -954,10 +722,7 @@ function screenResult(){
 }
 
 document.addEventListener("keydown",e=>{
-  if(["1","2","3"].includes(e.key)&&STATE.mode==="easy"&&!STATE.answered){
-    const b=document.querySelector(`.opt[data-i="${+e.key-1}"]`);if(b)b.click();
-  }
-  if(e.key==="Enter"&&STATE.answered){const n=document.querySelector("#nav .btn.go");if(n)n.click();}
+  if(e.key==="Enter"&&STATE.answered){const n=document.querySelector("#nav .btn.go");if(n){e.preventDefault();n.click();}}
 });
 
 screenIntro();
