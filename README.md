@@ -1,6 +1,6 @@
 # Simulador de Entrevista de Visa — para Cristina 🛂 🇺🇸
 
-Juego interactivo para practicar la entrevista de visa americana de turista (B1/B2), basado en **preguntas reales** de entrevistas consulares.
+Juego interactivo **estilo pixel art / RPG retro** para practicar la entrevista de visa americana de turista (B1/B2), basado en **preguntas reales** de entrevistas consulares. Cristina y el oficial son personajes pixelados; el oficial cambia de expresión (😊 😐 🤨 😠) según cómo respondas.
 
 ## ▶️ Jugar ahora (link para Cristina)
 

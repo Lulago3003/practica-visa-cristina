@@ -3,151 +3,212 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Simulador de Entrevista de Visa — Cristina</title>
+<title>VISA QUEST — La entrevista de Cristina</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
 <style>
   :root{
-    --navy:#0a2540;
-    --navy-dark:#061a30;
-    --gold:#c8a24b;
-    --cream:#f5efe4;
-    --paper:#fffdf7;
-    --green:#2e7d4f;
-    --red:#b3331f;
-    --amber:#c6892c;
-    --ink:#1a1a1a;
-    --shadow:0 10px 30px rgba(0,0,0,.25);
+    --bg:#0b1020;
+    --bg2:#131a31;
+    --panel:#16203a;
+    --panel2:#1d2a4a;
+    --gold:#e7b94e;
+    --gold2:#b88a2e;
+    --cream:#f4ecd6;
+    --green:#5fd07a;
+    --green2:#2f8a4c;
+    --red:#ff6b5e;
+    --red2:#c23a2e;
+    --amber:#ffc24d;
+    --ink:#0a0f1d;
+    --line:#3a4a73;
   }
   *{box-sizing:border-box}
-  html,body{margin:0;padding:0;min-height:100%;font-family:'Georgia','Times New Roman',serif;background:linear-gradient(180deg,#0a2540 0%, #061a30 100%);color:var(--ink)}
-  body{display:flex;align-items:center;justify-content:center;padding:20px}
-  #app{width:100%;max-width:820px}
-  .card{background:var(--paper);border-radius:14px;padding:34px;box-shadow:var(--shadow);position:relative;overflow:hidden}
-  .card::before{content:"";position:absolute;top:0;left:0;right:0;height:6px;background:linear-gradient(90deg,var(--navy),var(--gold),var(--navy))}
-  h1{font-size:28px;margin:0 0 10px;color:var(--navy);letter-spacing:.3px}
-  h2{font-size:22px;margin:0 0 16px;color:var(--navy)}
-  p{line-height:1.6;font-size:17px}
-  .muted{color:#666;font-size:14px;line-height:1.55}
-  .center{text-align:center}
-  .btn{display:inline-block;background:var(--navy);color:#fff;border:none;border-radius:8px;padding:14px 26px;font-size:16px;font-family:inherit;cursor:pointer;transition:transform .1s, background .2s;font-weight:bold;letter-spacing:.3px}
-  .btn:hover{background:var(--navy-dark)}
-  .btn:active{transform:scale(.97)}
-  .btn.gold{background:var(--gold);color:var(--navy-dark)}
-  .btn.gold:hover{background:#b08f3d}
-  .btn.ghost{background:transparent;color:var(--navy);border:2px solid var(--navy)}
-  .btn.ghost:hover{background:var(--navy);color:#fff}
-  .btn.sm{padding:9px 16px;font-size:14px}
-  .btn-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}
+  html,body{margin:0;padding:0;min-height:100%}
+  body{
+    font-family:'VT323',monospace;
+    background:#05070f;
+    color:var(--cream);
+    display:flex;align-items:center;justify-content:center;
+    padding:16px;min-height:100vh;
+    image-rendering:pixelated;
+  }
+  /* CRT scanlines */
+  body::after{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:99;
+    background:repeating-linear-gradient(transparent 0 2px, rgba(0,0,0,.10) 2px 4px);
+    mix-blend-mode:multiply;
+  }
+  #app{width:100%;max-width:760px}
+
+  .screen{
+    background:linear-gradient(180deg,var(--bg) 0%, var(--bg2) 100%);
+    border:4px solid var(--gold);
+    box-shadow:0 0 0 4px var(--ink), 0 0 0 8px var(--gold2), 0 14px 0 8px rgba(0,0,0,.4);
+    padding:26px 24px;position:relative;
+  }
+
+  /* Typography */
+  .title{font-family:'Press Start 2P',monospace;font-size:18px;line-height:1.5;color:var(--gold);
+    text-shadow:3px 3px 0 var(--ink);margin:0 0 14px}
+  .title.sm{font-size:13px}
+  h2.title{font-size:13px}
+  p{font-size:21px;line-height:1.25;margin:10px 0;letter-spacing:.4px}
+  .small{font-size:18px;color:#aab6d6;line-height:1.3}
+  .tag{font-family:'Press Start 2P',monospace;font-size:9px;letter-spacing:1px;color:var(--ink);
+    background:var(--gold);padding:6px 9px;display:inline-block;margin-bottom:14px;
+    box-shadow:3px 3px 0 var(--ink)}
+  .gold{color:var(--gold)}
+  .hl{color:#fff;background:var(--panel2);padding:0 4px;border-bottom:2px solid var(--gold)}
+
+  /* Buttons */
+  .btn{
+    font-family:'Press Start 2P',monospace;font-size:11px;line-height:1.4;
+    background:var(--panel2);color:var(--cream);border:3px solid var(--cream);
+    padding:13px 18px;cursor:pointer;letter-spacing:.5px;
+    box-shadow:4px 4px 0 var(--ink);transition:transform .05s, box-shadow .05s;
+  }
+  .btn:hover{background:#27406e}
+  .btn:active{transform:translate(4px,4px);box-shadow:0 0 0 var(--ink)}
+  .btn.go{background:var(--gold);color:var(--ink);border-color:var(--ink)}
+  .btn.go:hover{background:#ffd266}
+  .btn.green{background:var(--green2);border-color:#bff5cf;color:#fff}
+  .btn.sm{font-size:9px;padding:9px 12px}
+  .row{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px;align-items:center}
   .spacer{flex:1}
 
-  /* Setup form */
-  .field{margin:14px 0}
-  .field label{display:block;font-size:13px;font-weight:bold;color:var(--navy);margin-bottom:5px;letter-spacing:.3px}
-  .field input{width:100%;border:2px solid #e0d8c4;border-radius:8px;padding:11px 13px;font-family:inherit;font-size:15px;background:#fff}
-  .field input:focus{outline:none;border-color:var(--navy)}
-  .field .ex{font-size:12px;color:#999;margin-top:3px}
-  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 16px}
-  @media (max-width:560px){.grid2{grid-template-columns:1fr}}
+  /* Mission lines */
+  .mission{background:#0a1326;border:3px solid var(--line);padding:14px 16px;margin:14px 0}
+  .mline{display:flex;gap:10px;align-items:flex-start;margin:11px 0;font-size:20px;line-height:1.25}
+  .mline .ic{font-size:22px;line-height:1;flex-shrink:0}
+  .mline b{color:var(--gold)}
+  .mline.secret b{color:var(--red)}
+  .mline.rule b{color:var(--green)}
+
+  /* Sprites */
+  .sprite{display:inline-block;line-height:0;image-rendering:pixelated}
+  .sprite svg{display:block;image-rendering:pixelated}
 
   /* Outfits */
-  .outfit-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin:20px 0}
-  .outfit{background:#fff;border:2px solid #e0d8c4;border-radius:10px;padding:18px 12px;text-align:center;cursor:pointer;transition:all .15s}
-  .outfit:hover{border-color:var(--gold);transform:translateY(-3px)}
-  .outfit.selected{border-color:var(--green);background:#f0f8f2;box-shadow:0 4px 12px rgba(46,125,79,.2)}
-  .outfit .emoji{font-size:54px;line-height:1;margin-bottom:8px;display:block}
-  .outfit .name{font-weight:bold;color:var(--navy);font-size:14px;display:block;margin-bottom:4px}
-  .outfit .hint{font-size:12px;color:#777;display:block}
+  .outfit-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin:18px 0}
+  .outfit{background:#0a1326;border:3px solid var(--line);padding:14px 10px 12px;text-align:center;cursor:pointer}
+  .outfit:hover{border-color:var(--gold)}
+  .outfit.sel{border-color:var(--green);background:#0e2417;box-shadow:0 0 0 3px var(--green2) inset}
+  .outfit .nm{font-family:'Press Start 2P',monospace;font-size:9px;color:var(--cream);margin:8px 0 4px;line-height:1.4}
+  .outfit .hn{font-size:17px;color:#9fb0d6}
+  .outfit .sprite{margin:0 auto}
 
-  /* Documents checklist */
-  .doc{display:flex;align-items:flex-start;gap:12px;background:#fff;border:2px solid #e0d8c4;border-radius:10px;padding:13px 15px;margin:10px 0;cursor:pointer;transition:all .12s}
+  /* Docs */
+  .doc{display:flex;gap:12px;align-items:center;background:#0a1326;border:3px solid var(--line);
+    padding:11px 13px;margin:9px 0;cursor:pointer;font-size:20px}
   .doc:hover{border-color:var(--gold)}
-  .doc.checked{border-color:var(--green);background:#f0f8f2}
-  .doc .box{width:24px;height:24px;border:2px solid #bbb;border-radius:6px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-weight:bold;color:#fff;transition:all .12s}
-  .doc.checked .box{background:var(--green);border-color:var(--green)}
-  .doc .txt{font-size:15px;line-height:1.4}
-  .doc .txt b{color:var(--navy)}
+  .doc.on{border-color:var(--green);background:#0e2417}
+  .doc .bx{width:22px;height:22px;border:3px solid #6b7aa6;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Press Start 2P';font-size:9px}
+  .doc.on .bx{background:var(--green2);border-color:#bff5cf}
+  .doc b{color:var(--gold)}
 
-  /* Ventanilla */
-  .embassy{background:linear-gradient(180deg,#3a4a5c 0%, #2a3848 100%);border-radius:12px;padding:20px;margin:8px 0 18px;position:relative;color:#fff}
-  .embassy-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:#c8a24b}
-  .window{background:#1a2533;border:4px solid #2a3848;border-radius:8px;padding:20px;position:relative;display:flex;align-items:center;gap:18px}
-  .officer{font-size:60px;line-height:1;flex-shrink:0;filter:drop-shadow(0 2px 4px rgba(0,0,0,.5));transition:transform .2s}
-  .officer-info{flex:1}
-  .officer-name{font-size:12px;color:#c8a24b;letter-spacing:1px;margin-bottom:6px}
-  .officer-mood{font-size:13px;color:#cdd5e0;font-style:italic}
-  .cat-chip{display:inline-block;background:rgba(200,162,75,.18);color:#e6c987;border:1px solid rgba(200,162,75,.4);padding:2px 9px;border-radius:20px;font-size:11px;letter-spacing:.5px;margin-top:8px}
+  /* Embassy booth */
+  .booth{background:#0a1326;border:3px solid var(--line);padding:16px;position:relative;overflow:hidden}
+  .booth-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;
+    font-family:'Press Start 2P';font-size:8px;color:var(--gold);letter-spacing:1px}
+  .stage{display:flex;align-items:flex-end;justify-content:center;gap:14px;
+    background:linear-gradient(180deg,#26324f 0%,#1a2238 70%,#141a2c 100%);
+    border:3px solid #0a1326;padding:14px 10px 0;position:relative;min-height:150px}
+  .stage::before{content:"VENTANILLA 7";position:absolute;top:6px;left:50%;transform:translateX(-50%);
+    font-family:'Press Start 2P';font-size:7px;color:#cdd8f0;background:#0a1326;padding:4px 8px;border:2px solid var(--line)}
+  .counter{position:absolute;left:0;right:0;bottom:0;height:22px;background:#3a2c1c;border-top:3px solid #5a4730}
+  .glass{position:absolute;inset:34px 8px 22px 8px;border:2px solid rgba(180,200,255,.25);
+    background:rgba(150,190,255,.05);pointer-events:none}
+  .glass::after{content:"";position:absolute;top:0;left:18%;width:10%;height:100%;
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,.10),transparent)}
+  .off-wrap{position:relative;z-index:2}
+  .off-name{font-family:'Press Start 2P';font-size:7px;color:#cdd8f0;text-align:center;margin-top:4px}
 
-  /* Confidence meter */
-  .meter-wrap{margin-top:14px}
-  .meter-label{display:flex;justify-content:space-between;font-size:11px;color:#cdd5e0;letter-spacing:.5px;margin-bottom:5px;text-transform:uppercase}
-  .meter{height:10px;background:#1a2533;border-radius:6px;overflow:hidden}
-  .meter-fill{height:100%;border-radius:6px;transition:width .5s ease, background .5s ease;width:55%}
+  /* Trust meter (pixel cells) */
+  .trust{margin-top:12px}
+  .trust-lbl{display:flex;justify-content:space-between;font-family:'Press Start 2P';font-size:8px;color:#aab6d6;margin-bottom:6px}
+  .cells{display:flex;gap:3px}
+  .cell{flex:1;height:14px;background:#0a1326;border:2px solid var(--line)}
+  .cell.f{border-color:var(--ink)}
 
-  .speech{background:var(--cream);color:var(--ink);padding:18px 20px;border-radius:10px;margin-top:16px;position:relative;font-size:18px;line-height:1.5;font-style:italic}
-  .speech::before{content:"";position:absolute;top:-10px;left:30px;width:0;height:0;border-left:10px solid transparent;border-right:10px solid transparent;border-bottom:10px solid var(--cream)}
-  .speech .label{display:block;font-style:normal;font-size:11px;color:var(--gold);letter-spacing:1px;margin-bottom:6px;font-weight:bold}
+  /* Dialogue box */
+  .dialog{background:#0a1326;border:3px solid var(--cream);box-shadow:4px 4px 0 var(--ink);
+    padding:14px 16px;margin-top:14px;position:relative}
+  .dialog .who{font-family:'Press Start 2P';font-size:9px;color:var(--gold);margin-bottom:8px;letter-spacing:.5px}
+  .dialog .qtxt{font-size:23px;line-height:1.25;color:#fff}
+  .blink{animation:bk 1s steps(1) infinite;color:var(--gold)}
+  @keyframes bk{50%{opacity:0}}
 
   /* Mode toggle */
-  .mode-toggle{display:flex;background:#e8e0cc;border-radius:8px;padding:4px;margin:6px 0 14px;gap:4px}
-  .mode-toggle button{flex:1;background:transparent;border:none;padding:10px;font-family:inherit;font-size:14px;cursor:pointer;border-radius:6px;color:#666;font-weight:bold}
-  .mode-toggle button.active{background:var(--navy);color:#fff}
+  .modes{display:flex;gap:8px;margin:14px 0 6px}
+  .modes button{flex:1;font-family:'Press Start 2P';font-size:8px;line-height:1.5;padding:10px 6px;
+    background:#0a1326;color:#9fb0d6;border:3px solid var(--line);cursor:pointer}
+  .modes button.on{background:var(--gold);color:var(--ink);border-color:var(--ink)}
 
-  /* Options */
-  .options{display:flex;flex-direction:column;gap:10px;margin:8px 0}
-  .option{background:#fff;border:2px solid #e0d8c4;border-radius:10px;padding:14px 16px;text-align:left;cursor:pointer;font-family:inherit;font-size:15px;line-height:1.5;color:var(--ink);transition:all .12s;display:flex;gap:12px;align-items:flex-start}
-  .option:hover:not(:disabled){border-color:var(--navy);background:#fafaf5}
-  .option:disabled{cursor:default}
-  .option .num{flex-shrink:0;width:24px;height:24px;background:#eee;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:bold;color:#888}
-  .option.picked.good{border-color:var(--green);background:#eaf6ee}
-  .option.picked.mid{border-color:var(--amber);background:#fdf5e6}
-  .option.picked.bad{border-color:var(--red);background:#fbeae6}
-  .option.reveal-good{border-color:var(--green);background:#eaf6ee}
-  .option.dim{opacity:.5}
+  /* Options menu */
+  .opts{display:flex;flex-direction:column;gap:9px;margin:10px 0}
+  .opt{display:flex;gap:10px;align-items:flex-start;background:#0a1326;border:3px solid var(--line);
+    padding:12px 12px;cursor:pointer;font-size:21px;line-height:1.25;color:var(--cream);text-align:left;font-family:'VT323',monospace}
+  .opt:hover:not(:disabled){border-color:var(--gold);background:#10203c}
+  .opt .sel{font-family:'Press Start 2P';font-size:10px;color:var(--gold);opacity:0;flex-shrink:0;margin-top:2px}
+  .opt:hover:not(:disabled) .sel{opacity:1}
+  .opt .k{font-family:'Press Start 2P';font-size:9px;color:#7c8bb5;flex-shrink:0;margin-top:3px}
+  .opt:disabled{cursor:default}
+  .opt.pick.good{border-color:var(--green);background:#0e2417}
+  .opt.pick.mid{border-color:var(--amber);background:#241f0e}
+  .opt.pick.bad{border-color:var(--red);background:#240f0e}
+  .opt.revealgood{border-color:var(--green)}
+  .opt.dim{opacity:.45}
 
-  textarea{width:100%;min-height:110px;border:2px solid #e0d8c4;border-radius:10px;padding:14px;font-family:inherit;font-size:15px;line-height:1.5;resize:vertical;background:#fff}
-  textarea:focus{outline:none;border-color:var(--navy)}
+  textarea{width:100%;min-height:96px;background:#0a1326;border:3px solid var(--line);color:var(--cream);
+    font-family:'VT323',monospace;font-size:21px;line-height:1.3;padding:12px;resize:vertical}
+  textarea:focus{outline:none;border-color:var(--gold)}
 
-  .feedback{margin-top:14px;padding:15px 17px;border-radius:10px;border-left:5px solid var(--navy);background:#f5efe4;font-size:15px;line-height:1.55}
-  .feedback.good{border-left-color:var(--green);background:#eaf6ee}
-  .feedback.mid{border-left-color:var(--amber);background:#fdf5e6}
-  .feedback.bad{border-left-color:var(--red);background:#fbeae6}
-  .feedback strong{display:block;margin-bottom:5px;font-size:13px;letter-spacing:.5px;text-transform:uppercase}
-  .model-ans{margin-top:10px;padding:11px 14px;background:#eef4ee;border:1px dashed var(--green);border-radius:8px;font-size:14px;line-height:1.5}
-  .model-ans b{color:var(--green)}
+  .fb{margin-top:14px;border:3px solid var(--line);background:#0a1326;padding:13px 15px;font-size:20px;line-height:1.3}
+  .fb.good{border-color:var(--green);background:#0c1f14}
+  .fb.mid{border-color:var(--amber);background:#1f1b0c}
+  .fb.bad{border-color:var(--red);background:#1f0e0c}
+  .fb .rk{font-family:'Press Start 2P';font-size:8px;letter-spacing:.5px;margin-bottom:7px;display:block}
+  .fb.good .rk{color:var(--green)}.fb.mid .rk{color:var(--amber)}.fb.bad .rk{color:var(--red)}
+  .fb .react{color:#fff;font-size:22px}
+  .model{margin-top:10px;border:2px dashed var(--green2);background:#0c1f14;padding:10px 12px;font-size:19px}
+  .model b{color:var(--green)}
+
+  /* Setup form */
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 16px}
+  @media(max-width:560px){.grid2{grid-template-columns:1fr}}
+  .field{margin:11px 0}
+  .field label{display:block;font-family:'Press Start 2P';font-size:8px;color:var(--gold);margin-bottom:6px;letter-spacing:.5px;line-height:1.5}
+  .field input{width:100%;background:#0a1326;border:3px solid var(--line);color:#fff;
+    font-family:'VT323';font-size:20px;padding:9px 11px}
+  .field input:focus{outline:none;border-color:var(--gold)}
+  .field .ex{font-size:16px;color:#7c8bb5;margin-top:3px}
 
   /* Result */
-  .stamp{display:inline-block;border:4px solid;padding:14px 28px;font-size:30px;font-weight:bold;letter-spacing:3px;transform:rotate(-5deg);text-transform:uppercase;margin:12px 0;font-family:'Arial Black','Arial',sans-serif}
-  .stamp.approved{color:var(--green);border-color:var(--green)}
-  .stamp.pending{color:var(--amber);border-color:var(--amber)}
-  .stamp.denied{color:var(--red);border-color:var(--red)}
+  .stamp{font-family:'Press Start 2P';font-size:20px;letter-spacing:2px;padding:14px 18px;display:inline-block;
+    border:4px solid;transform:rotate(-4deg);box-shadow:5px 5px 0 var(--ink);margin:10px 0}
+  .stamp.app{color:var(--green);border-color:var(--green)}
+  .stamp.pen{color:var(--amber);border-color:var(--amber)}
+  .stamp.den{color:var(--red);border-color:var(--red)}
+  .scorebar{display:flex;gap:10px;margin:16px 0;text-align:center;flex-wrap:wrap}
+  .sb{flex:1;min-width:90px;background:#0a1326;border:3px solid var(--line);padding:12px}
+  .sb .n{font-family:'Press Start 2P';font-size:18px;display:block;margin-bottom:6px}
+  .sb.g .n{color:var(--green)}.sb.m .n{color:var(--amber)}.sb.b .n{color:var(--red)}
+  .sb .l{font-size:16px;color:#9fb0d6}
+  .cats .cr{display:flex;align-items:center;gap:10px;margin:8px 0;font-size:18px}
+  .cats .nm{width:150px;flex-shrink:0;color:var(--gold);font-size:16px}
+  .cats .bar{flex:1;height:12px;background:#0a1326;border:2px solid var(--line)}
+  .cats .bar span{display:block;height:100%}
+  .tips{background:#0a1326;border:3px solid var(--line);padding:15px;margin:14px 0}
+  .tips h3{font-family:'Press Start 2P';font-size:10px;color:var(--gold);margin:0 0 12px;line-height:1.5}
+  .tips li{font-size:20px;line-height:1.3;margin:9px 0}
+  .pill{display:inline-block;font-family:'Press Start 2P';font-size:8px;color:var(--ink);background:#9fb0d6;padding:5px 8px;margin:3px 3px 0 0}
 
-  .score-row{display:flex;justify-content:space-around;gap:10px;margin:18px 0;text-align:center;flex-wrap:wrap}
-  .score-box{flex:1;min-width:90px;background:#f5efe4;padding:14px;border-radius:10px}
-  .score-box .num{font-size:28px;font-weight:bold;display:block}
-  .score-box.g .num{color:var(--green)}
-  .score-box.m .num{color:var(--amber)}
-  .score-box.b .num{color:var(--red)}
-  .score-box .lbl{font-size:11px;color:#666;letter-spacing:1px}
-
-  .cat-result{margin:8px 0}
-  .cat-result .row{display:flex;align-items:center;gap:10px;margin:7px 0;font-size:14px}
-  .cat-result .row .name{width:130px;flex-shrink:0;color:var(--navy);font-weight:bold;font-size:13px}
-  .cat-result .bar{flex:1;height:9px;background:#e8e0cc;border-radius:5px;overflow:hidden}
-  .cat-result .bar span{display:block;height:100%;border-radius:5px}
-
-  .tips{background:#f5efe4;padding:18px;border-radius:10px;margin:16px 0}
-  .tips h3{margin:0 0 10px;color:var(--navy);font-size:16px}
-  .tips ul{margin:0;padding-left:20px}
-  .tips li{margin:7px 0;font-size:14px;line-height:1.5}
-
-  .badge{display:inline-block;background:var(--gold);color:var(--navy-dark);padding:4px 11px;border-radius:20px;font-size:12px;font-weight:bold;letter-spacing:1px;margin-bottom:12px}
-  .pill{display:inline-block;background:#eef0f4;color:var(--navy);padding:5px 12px;border-radius:20px;font-size:13px;margin:3px 4px 3px 0;border:1px solid #dde}
-
-  @media (max-width:560px){
-    .card{padding:24px 20px}
-    h1{font-size:23px}
-    .officer{font-size:48px}
-    .stamp{font-size:22px;letter-spacing:2px}
-    .speech{font-size:16px}
+  @media(max-width:560px){
+    .title{font-size:14px}.title.sm{font-size:11px}
+    p{font-size:19px}.opt{font-size:19px}.dialog .qtxt{font-size:20px}
   }
 </style>
 </head>
@@ -156,619 +217,524 @@
 
 <script>
 /* ================================================================
-   PERFIL — datos que Cristina puede personalizar (opcional).
-   Las "buenas respuestas" usan estos datos para sonar como SU caso.
+   PERFIL — caso real de Cristina (editable en el juego)
    ================================================================ */
 const PROFILE = {
-  nombre:"Cristina", pais:"Panamá", ciudadOrigen:"La Chorrera", ocupacion:"la UTP en Panamá Pacífico", tiempoOcup:"",
-  visita:"mi mamá", ciudadUS:"Nueva Jersey", duracion:"", alojamiento:"", pago:"", vivesCon:"mi abuela y mi tía"
+  nombre:"Cristina", pais:"Panamá", ciudadOrigen:"La Chorrera",
+  ocupacion:"la UTP en Panamá Pacífico", tiempoOcup:"",
+  visita:"mi mamá", ciudadUS:"Nueva Jersey", duracion:"",
+  alojamiento:"", pago:"", vivesCon:"mi abuela y mi tío"
 };
 const FALLBACK = {
-  nombre:"Cristina",
-  pais:"Panamá",
-  ciudadOrigen:"La Chorrera",
-  ocupacion:"mi trabajo",
-  tiempoOcup:"varios años",
-  visita:"mi mamá",
-  ciudadUS:"la ciudad donde vive mi mamá",
-  duracion:"dos semanas",
-  alojamiento:"en casa de una amiga de la familia",
-  pago:"yo, con mis ahorros",
-  vivesCon:"mi abuela y mi tía"
+  nombre:"Cristina", pais:"Panamá", ciudadOrigen:"La Chorrera",
+  ocupacion:"mi trabajo", tiempoOcup:"varios años",
+  visita:"mi mamá", ciudadUS:"Nueva Jersey", duracion:"dos semanas",
+  alojamiento:"en casa de una amiga de la familia", pago:"yo, con mis ahorros",
+  vivesCon:"mi abuela y mi tío"
 };
-function val(key){ return (PROFILE[key] && PROFILE[key].trim()) ? PROFILE[key].trim() : FALLBACK[key]; }
-function fills(str){ return str.replace(/\{(\w+)\}/g, (_,k)=> val(k)); }
+function val(k){ return (PROFILE[k] && PROFILE[k].trim()) ? PROFILE[k].trim() : FALLBACK[k]; }
+function fills(s){ return s.replace(/\{(\w+)\}/g,(_,k)=>val(k)); }
 
 /* ================================================================
-   BANCO DE PREGUNTAS — basado en preguntas REALES de entrevistas
-   B1/B2 (fuentes: Boundless, RumboVisa, guías consulares 2025).
-   rating: good = ideal | mid = aceptable/mejorable | bad = bandera roja
+   PIXEL SPRITES (SVG de rects, crisp)
+   ================================================================ */
+function spriteSVG(rects,size,cssw){
+  const body=rects.map(r=>`<rect x="${r[0]}" y="${r[1]}" width="${r[2]}" height="${r[3]}" fill="${r[4]}"/>`).join("");
+  return `<span class="sprite"><svg width="${cssw}" height="${cssw}" viewBox="0 0 ${size} ${size}" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg">${body}</svg></span>`;
+}
+/* Cristina (bust 24x24). cMain/cShad = color del outfit */
+function cristinaSVG(cMain,cShad,cssw){
+  const hair="#5a361f",hairD="#3f2613",skin="#f1cba4",skinS="#e0b78d",eye="#2b1a12",
+        mouth="#c2705c",blush="#ec9f8b",collar="#f7f0e2";
+  const r=[
+    [7,1,10,2,hair],[6,2,12,1,hair],
+    [5,3,14,13,hair],[4,5,1,9,hair],[19,5,1,9,hair],
+    [7,5,10,11,skin],[7,5,1,11,skinS],[16,5,1,11,skinS],
+    [6,4,12,2,hair],[6,6,2,3,hair],[16,6,2,3,hair],
+    [9,8,2,1,hairD],[13,8,2,1,hairD],
+    [9,9,2,2,eye],[13,9,2,2,eye],[10,9,1,1,"#5a4a44"],[14,9,1,1,"#5a4a44"],
+    [12,11,1,1,skinS],
+    [8,12,1,1,blush],[15,12,1,1,blush],
+    [10,13,4,1,mouth],[9,13,1,1,mouth],[14,13,1,1,mouth],
+    [11,16,3,2,skin],
+    [4,19,16,5,cMain],[4,19,16,1,cShad],
+    [9,18,6,2,collar],[11,19,2,4,collar],
+    [7,19,2,5,cShad],[15,19,2,5,cShad]
+  ];
+  return spriteSVG(r,24,cssw);
+}
+/* Oficial (bust 24x24) con expresión por mood */
+function officerSVG(mood,cssw){
+  const hair="#9aa0a6",hairD="#787d84",skin="#e6b48c",skinS="#d29c74",eye="#22303f";
+  const navy="#16263f",gold="#cba24c",white="#f2efe6",mouth="#9c5040";
+  const base=[
+    [7,3,10,2,hair],[6,4,12,1,hair],[6,3,11,1,hairD],
+    [5,5,2,7,hair],[17,5,2,7,hair],
+    [7,4,10,12,skin],[16,5,1,11,skinS],[7,5,1,11,skinS],
+    [6,9,1,2,skin],[17,9,1,2,skin],
+    [8,9,2,2,white],[14,9,2,2,white],[9,9,1,2,eye],[14,9,1,2,eye],
+    [12,11,1,1,skinS],[12,12,1,1,skinS],
+    [9,13,6,1,hair],
+    [11,16,3,2,skin],
+    [3,18,18,6,navy],[3,18,18,1,"#2a416a"],
+    [9,17,6,2,navy],[11,18,2,2,white],[11,19,2,4,"#3a2c1c"],
+    [5,20,2,2,gold]
+  ];
+  let f=[];
+  if(mood==="happy") f=[[8,7,3,1,hairD],[13,7,3,1,hairD],[9,15,6,1,mouth],[8,14,1,1,mouth],[15,14,1,1,mouth]];
+  else if(mood==="neutral") f=[[8,7,3,1,hairD],[13,7,3,1,hairD],[9,15,6,1,mouth]];
+  else if(mood==="doubt") f=[[8,6,3,1,hairD],[13,8,3,1,hairD],[10,15,3,1,mouth]];
+  else f=[[8,7,2,1,hairD],[10,8,2,1,hairD],[14,7,2,1,hairD],[12,8,2,1,hairD],[9,15,6,1,mouth],[8,16,1,1,mouth],[15,16,1,1,mouth]]; // angry
+  return spriteSVG(base.concat(f),24,cssw);
+}
+
+/* ================================================================
+   BANCO DE PREGUNTAS (basado en entrevistas B1/B2 reales)
    ================================================================ */
 const QUESTIONS = [
-/* ---------- PROPÓSITO DEL VIAJE ---------- */
 { cat:"proposito", key:true,
   q:"Buenos días. ¿Cuál es el motivo de su viaje a Estados Unidos?",
-  keywords:["visitar","turismo","conocer","mamá","mama","familia","vacaciones","paseo","pasear"],
+  keywords:["mundial","fútbol","futbol","turismo","conocer","partidos","vacaciones"],
   options:[
     {text:"Voy como turista al Mundial de fútbol. Me quedo {duracion} y regreso a {pais}.", rating:"good",
-     feedback:"Respuesta fuerte: turismo claro y temporal (el Mundial termina y vuelves). No tienes que mencionar a tu mamá por iniciativa propia — pero OJO: si te preguntan directamente por familia en EE.UU., debes decir la verdad."},
-    {text:"Quiero ir a buscar oportunidades y ver cómo me va por allá.", rating:"bad",
-     feedback:"'Buscar oportunidades' es bandera roja inmediata. El oficial asume intención de quedarse a trabajar. Visa negada casi seguro."},
+     feedback:"Coartada perfecta: turismo claro y TEMPORAL (el Mundial termina y vuelves). No menciones a tu mamá por tu cuenta. OJO: si te preguntan directo por familia, di la verdad."},
+    {text:"Voy a visitar a {visita}, que vive en {ciudadUS}.", rating:"bad",
+     feedback:"Revelar de entrada que tu mamá vive allá enciende la alarma de inmigración. No mientas, pero tampoco lo ofrezcas tú: lidera con el Mundial."},
     {text:"A ver el Mundial.", rating:"mid",
-     feedback:"Buena razón, pero demasiado seca. Agrega cuánto tiempo te quedas y que regresas — y prepárate, porque lo siguiente que te van a preguntar es si tienes entradas."}
+     feedback:"Buena coartada, pero muy seca. Agrega cuánto tiempo te quedas y que regresas. Y prepárate: lo siguiente será '¿tienes entradas?'."}
   ]},
-{ cat:"proposito",
-  q:"¿Y qué va a hacer exactamente durante su estancia?",
-  keywords:["visitar","pasear","conocer","mamá","mama","compras","turistear"],
-  options:[
-    {text:"Pasar tiempo con {visita}, conocer la ciudad, tal vez ir de compras. Plan tranquilo de turista.", rating:"good",
-     feedback:"Plan concreto y realista de turista. Transmite que tienes claro tu viaje."},
-    {text:"Todavía no sé bien, depende de lo que surja allá.", rating:"bad",
-     feedback:"No tener plan suena a que vas a 'ver qué pasa'. Eso preocupa al oficial. Ten un itinerario aunque sea sencillo."},
-    {text:"Descansar y ya veré.", rating:"mid",
-     feedback:"Vago. Da 2 o 3 actividades concretas para que suene un viaje planeado, no improvisado."}
-  ]},
-{ cat:"proposito",
-  q:"¿Por qué quiere viajar justo en esta fecha?",
-  keywords:["vacaciones","permiso","cumpleaños","fechas","libre","aproveché","aproveche"],
-  options:[
-    {text:"Pedí vacaciones en {ocupacion} para estas fechas y me coincidió bien para visitar a {visita}.", rating:"good",
-     feedback:"Conectas la fecha con tus vacaciones laborales: refuerza que tienes a qué volver."},
-    {text:"Porque ya no aguantaba las ganas de irme.", rating:"mid",
-     feedback:"Suena impulsivo. Mejor liga la fecha a algo concreto: vacaciones, un evento familiar, temporada."},
-    {text:"Porque cuanto antes salga de aquí, mejor.", rating:"bad",
-     feedback:"Hablar mal de tu país sugiere que no quieres volver. Nunca des esa impresión."}
-  ]},
-{ cat:"proposito",
-  q:"¿A qué lugares o ciudades piensa ir?",
-  keywords:["ciudad","quedo","mamá","mama","conocer","alrededor"],
-  options:[
-    {text:"Principalmente a {ciudadUS}, donde está {visita}, y quizá algún lugar cercano un día.", rating:"good",
-     feedback:"Itinerario coherente con tu motivo. Sencillo y creíble."},
-    {text:"Quiero recorrer medio país en estas semanas.", rating:"mid",
-     feedback:"Un itinerario gigante en poco tiempo y bajo presupuesto suena poco creíble. Mantenlo realista."},
-    {text:"No tengo idea, voy viendo.", rating:"bad",
-     feedback:"Falta de plan otra vez. Ten al menos la ciudad principal clara."}
-  ]},
-/* ---------- MUNDIAL 2026 (razón de viaje de Cristina) ---------- */
 { cat:"proposito", key:true,
-  q:"Veo que va por el Mundial. ¿A qué partidos o ciudades piensa ir?",
-  keywords:["partido","partidos","entradas","boletos","estadio","ciudad","mundial","tengo"],
+  q:"El Mundial, ¿eh? ¿A qué partidos o ciudades piensa ir?",
+  keywords:["partido","partidos","entradas","boletos","estadio","ciudad","tengo"],
   options:[
-    {text:"Tengo entradas para [partido/ciudad]; aquí está la confirmación de las entradas.", rating:"good",
-     feedback:"Tener entradas concretas y la confirmación a la mano hace que tu motivo sea real y verificable. Muy bien."},
-    {text:"Todavía no decido bien a cuáles, estoy viendo disponibilidad.", rating:"mid",
-     feedback:"Si el Mundial es tu razón principal, debes tener al menos los partidos/ciudades definidos. Lleva tus entradas o confirmaciones."},
-    {text:"A los que pueda, todavía no he comprado nada.", rating:"bad",
-     feedback:"Sin entradas ni plan, el Mundial suena a pretexto y el oficial lo notará. Compra las entradas antes de la entrevista."}
+    {text:"Tengo entradas para [partido/ciudad]; aquí está la confirmación.", rating:"good",
+     feedback:"Entradas concretas + confirmación a la mano = tu coartada es real y verificable. Esto sostiene toda tu historia."},
+    {text:"A los que pueda, todavía no compro nada.", rating:"bad",
+     feedback:"Sin entradas, el 'Mundial' suena a pretexto y el oficial lo nota al instante. Compra las entradas ANTES de la cita."},
+    {text:"Todavía estoy viendo disponibilidad.", rating:"mid",
+     feedback:"Si el Mundial es tu razón principal, ten los partidos/ciudades definidos y lleva el comprobante."}
   ]},
 { cat:"proposito",
   q:"¿Ya compró las entradas para los partidos?",
-  keywords:["sí","si","compré","compre","entradas","boletos","confirmación","confirmacion"],
+  keywords:["sí","si","compré","compre","entradas","confirmación"],
   options:[
-    {text:"Sí, ya las compré y tengo la confirmación impresa para mostrarle.", rating:"good",
-     feedback:"Entradas compradas = prueba sólida de que tu viaje es real y con propósito turístico claro."},
+    {text:"Sí, ya las compré, tengo la confirmación impresa.", rating:"good",
+     feedback:"Prueba sólida de que el viaje es real y con propósito turístico claro."},
     {text:"No, las compro cuando llegue allá.", rating:"bad",
-     feedback:"Decir que comprarás todo al llegar debilita tu motivo. Lleva las entradas ya compradas como respaldo."},
+     feedback:"Comprar todo al llegar debilita tu coartada. Llévalas listas como respaldo."},
     {text:"Estoy en proceso de comprarlas.", rating:"mid",
-     feedback:"Mejor tenerlas listas antes de la cita. Si no, al menos lleva el comprobante de la reserva o intento de compra."}
+     feedback:"Mejor tenerlas listas. Si no, lleva el comprobante del intento o la reserva."}
   ]},
-
-/* ---------- DURACIÓN / REGRESO ---------- */
 { cat:"tiempo", key:true,
-  q:"¿Cuánto tiempo piensa quedarse en Estados Unidos?",
-  keywords:["semanas","semana","días","dias","dos","tres","quince","duracion"],
+  q:"¿Cuánto tiempo piensa quedarse?",
+  keywords:["semanas","días","dias","dos","tres","duracion","regreso"],
   options:[
     {text:"{duracion}. Mi vuelo de regreso ya está reservado.", rating:"good",
-     feedback:"Tiempo corto y específico + vuelo de regreso reservado = señal fuerte de que vas a volver."},
-    {text:"No estoy segura, depende de cómo me sienta allá.", rating:"bad",
+     feedback:"Estancia corta y específica + vuelo de vuelta = señal fuerte de retorno."},
+    {text:"No sé, depende de cómo me sienta allá.", rating:"bad",
      feedback:"Estancia indefinida = posible inmigrante. Siempre da un periodo corto y concreto."},
     {text:"Como un mes, más o menos.", rating:"mid",
-     feedback:"Aceptable, pero impreciso. Da fechas y menciona que el vuelo de vuelta ya está comprado."}
+     feedback:"Impreciso. Da fechas exactas y menciona que el vuelo de vuelta ya está comprado."}
   ]},
 { cat:"tiempo",
-  q:"¿Ya tiene su boleto de regreso? ¿Para cuándo?",
-  keywords:["sí","si","vuelo","boleto","regreso","reservado","comprado","fecha"],
+  q:"¿Tiene boleto de regreso?",
+  keywords:["sí","si","vuelo","boleto","regreso","reservado","ida y vuelta"],
   options:[
-    {text:"Sí, vuelo de ida y vuelta. Regreso al terminar {duracion}.", rating:"good",
-     feedback:"Boleto de vuelta comprado es de las pruebas más fuertes de intención de regresar."},
+    {text:"Sí, compré ida y vuelta. Regreso al terminar {duracion}.", rating:"good",
+     feedback:"El boleto de vuelta es de las pruebas más fuertes de que regresas."},
     {text:"Solo compré la ida por ahora.", rating:"bad",
-     feedback:"Comprar solo la ida es una de las banderas rojas más clásicas. Compra ida y vuelta antes de la entrevista."},
+     feedback:"Comprar solo la ida es una bandera roja clásica. Compra ida y vuelta antes de la entrevista."},
     {text:"Lo compro cuando me den la visa.", rating:"mid",
-     feedback:"Entendible por costos, pero ten al menos un itinerario tentativo con fecha de regreso clara para mencionar."}
+     feedback:"Entendible por costo, pero ten un itinerario con fecha de regreso clara para mencionar."}
   ]},
-/* ---------- ALOJAMIENTO ---------- */
 { cat:"alojamiento", key:true,
-  q:"¿Dónde se va a quedar durante su visita?",
-  keywords:["casa","amiga","amigo","familiar","dirección","direccion","hotel","mamá","mama"],
+  q:"¿Dónde se va a quedar?",
+  keywords:["casa","amiga","hotel","dirección","direccion","quedo"],
   options:[
-    {text:"{alojamiento}, en {ciudadUS}. Tengo la dirección y una carta de invitación.", rating:"good",
+    {text:"{alojamiento}, tengo la dirección y carta de invitación.", rating:"good",
      feedback:"Lugar específico, relación clara y documentos listos. Excelente."},
-    {text:"Por ahí, todavía no lo decidimos bien.", rating:"bad",
-     feedback:"Sin lugar definido = sospechoso. Debes saber exactamente dónde vas a dormir."},
-    {text:"Con alguien que conoce {visita}.", rating:"mid",
-     feedback:"Demasiado vago. Necesitas nombre, dirección y relación clara; mejor con carta de invitación."}
-  ]},
-{ cat:"alojamiento", key:true,
-  q:"¿Conoce bien a la persona en cuya casa se va a quedar?",
-  keywords:["sí","si","amiga","años","conozco","familia","confianza"],
-  options:[
-    {text:"Sí, es {alojamiento}; la conozco desde hace años por mi familia.", rating:"good",
-     feedback:"Relación de confianza y de tiempo. Reduce sospechas."},
-    {text:"No mucho, pero {visita} la conoce.", rating:"bad",
-     feedback:"Quedarte con un casi-desconocido preocupa al oficial. Deja claro el vínculo real y de cuánto tiempo."},
-    {text:"La contacté hace poco para que me reciba.", rating:"bad",
-     feedback:"Eso enciende alarmas. Si tu caso es así, considera reservar un hotel para mostrar independencia."}
+    {text:"En casa de {visita}.", rating:"mid",
+     feedback:"Si tu coartada es el Mundial, decir que te quedas en casa de tu mamá conecta los puntos hacia 'inmigración'. Si de verdad te quedas con ella, dilo con calma pero refuerza que regresas."},
+    {text:"Todavía no lo decidimos bien.", rating:"bad",
+     feedback:"Sin lugar definido = sospechoso. Debes saber exactamente dónde vas a dormir."}
   ]},
 { cat:"alojamiento",
-  q:"¿Me puede dar la dirección donde se hospedará?",
-  keywords:["dirección","direccion","calle","ciudad","apunté","apunte","tengo"],
+  q:"¿Me da la dirección donde se hospedará?",
+  keywords:["dirección","direccion","calle","ciudad","tengo","apunté"],
   options:[
-    {text:"Sí, la tengo apuntada aquí en {ciudadUS}, se la muestro.", rating:"good",
+    {text:"Sí, la tengo apuntada aquí, se la muestro.", rating:"good",
      feedback:"Tener la dirección a la mano demuestra organización y honestidad."},
-    {text:"No me la sé de memoria, pero {visita} la tiene.", rating:"mid",
-     feedback:"Llévala anotada o en el teléfono. No saber dónde dormirás se ve improvisado."},
-    {text:"No sé, llego y veo.", rating:"bad",
-     feedback:"Inaceptable para el oficial. Debes saber tu alojamiento exacto."}
+    {text:"No me la sé de memoria.", rating:"mid",
+     feedback:"Llévala anotada o en el teléfono. No saber dónde duermes se ve improvisado."},
+    {text:"Llego y veo.", rating:"bad",
+     feedback:"Inaceptable. Debes saber tu alojamiento exacto."}
   ]},
-/* ---------- FAMILIA (clave para el caso de Cristina) ---------- */
-{ cat:"familia", key:true,
-  q:"¿Tiene familiares o amigos viviendo en Estados Unidos?",
-  keywords:["sí","si","mamá","mama","vive","familiar"],
+{ cat:"familia", key:true, tricky:true,
+  q:"¿Tiene familiares en Estados Unidos?",
+  keywords:["sí","si","mamá","mama","verdad","honest"],
   options:[
-    {text:"Sí, {visita} vive allá; justamente por eso voy a visitarla. Pero mi vida está en {pais}.", rating:"good",
-     feedback:"Honestidad total + reafirmas que tu vida (y tu regreso) está en tu país. Combinación ganadora."},
+    {text:"Sí, {visita} vive en {ciudadUS}. Pero mi vida está en {pais} y voy solo de visita por el Mundial.", rating:"good",
+     feedback:"Te preguntaron DIRECTO: aquí toca la verdad. Lo manejas perfecto: admites a tu mamá y de inmediato reafirmas que regresas. Honestidad + ancla."},
     {text:"No, a nadie.", rating:"bad",
-     feedback:"NUNCA mientas. Si tu mamá está allá, el consulado lo sabe. Una mentira = negación y problemas futuros."},
-    {text:"Sí, pero casi no tengo contacto con ellos.", rating:"mid",
-     feedback:"Si la vas a visitar, restarle importancia suena contradictorio. Sé directa y natural."}
+     feedback:"NUNCA mientas. El consulado ya sabe que tu mamá está allá (y debe coincidir con tu DS-160). Una mentira = negación y problemas a futuro."},
+    {text:"Eh... bueno... sí, una tía lejana creo.", rating:"mid",
+     feedback:"Dudar y minimizar se ve peor que la verdad. Responde claro: sí, mi mamá; y refuerza que tu vida está en Panamá."}
   ]},
 { cat:"familia", key:true,
-  q:"Tengo entendido que su mamá vive en Estados Unidos. ¿Qué estatus tiene y hace cuánto está allá?",
-  keywords:["residente","ciudadana","años","trabaja","legal","papeles"],
+  q:"Su mamá en Nueva Jersey... ¿qué estatus tiene y hace cuánto está allá?",
+  keywords:["residente","años","trabaja","legal","papeles"],
   options:[
-    {text:"Sí, es residente legal; lleva varios años trabajando allá con sus papeles en regla.", rating:"good",
-     feedback:"Directo y tranquilo. Que ella esté legal te ayuda: no representas riesgo de inmigración irregular. Conoce su estatus exacto."},
-    {text:"Prefiero no hablar de la situación de mi mamá.", rating:"bad",
-     feedback:"Evadir genera sospecha inmediata. Si su situación es legal, dilo con calma; es información que ya tienen."},
+    {text:"Es residente legal; lleva varios años trabajando allá con sus papeles en regla.", rating:"good",
+     feedback:"Directo y tranquilo. Que ella esté legal te ayuda: no representas riesgo migratorio. Conoce su estatus exacto antes de la cita."},
+    {text:"Prefiero no hablar de su situación.", rating:"bad",
+     feedback:"Evadir genera sospecha inmediata. Si está legal, dilo con calma; ya tienen esa info."},
     {text:"No sé bien qué papeles tiene.", rating:"mid",
-     feedback:"Antes de la entrevista averigua el estatus de tu mamá, hace cuánto está y en qué trabaja. No saberlo se ve mal."}
+     feedback:"Averigua el estatus de tu mamá, hace cuánto está y en qué trabaja. No saberlo se ve mal."}
   ]},
 { cat:"familia", key:true,
-  q:"Su mamá viajó antes a Estados Unidos pero regresó a su país. ¿Por qué regresó?",
-  keywords:["familia","quería","queria","regresar","reglas","hijos","decidió","decidio"],
+  q:"Tengo entendido que su mamá viajó antes y regresó. ¿Por qué regresó?",
+  keywords:["familia","quería","queria","reglas","hijos","regresar"],
   options:[
-    {text:"Porque quiso volver con su familia. Eso justamente muestra que en mi familia respetamos las reglas de la visa.", rating:"good",
-     feedback:"Conviertes un detalle delicado en un punto a tu favor: tu familia cumple y regresa. Muy bien manejado."},
-    {text:"La verdad no sé bien por qué regresó.", rating:"bad",
-     feedback:"No saberlo te hace ver poco preparada. Hablen en familia antes de la entrevista para tener la versión clara."},
+    {text:"Volvió con su familia. Eso muestra que en mi familia respetamos las reglas de la visa.", rating:"good",
+     feedback:"Conviertes un detalle delicado en punto a favor: tu familia cumple y regresa. Muy bien manejado."},
+    {text:"No sé bien por qué regresó.", rating:"bad",
+     feedback:"No saberlo te hace ver poco preparada. Hablen en familia antes para tener la versión clara."},
     {text:"Porque allá la cosa no era como esperaba.", rating:"mid",
-     feedback:"Honesto pero negativo. Mejor enfócalo positivo: regresó por su familia y porque respeta las reglas."}
+     feedback:"Honesto pero negativo. Enfócalo positivo: regresó por su familia y porque respeta las reglas."}
   ]},
 { cat:"familia", key:true, tricky:true,
   q:"Con su mamá allá... ¿no le tienta quedarse a vivir en Estados Unidos?",
-  keywords:["no","trabajo","estudio","vida","aquí","aqui","país","pais","regreso","vuelvo"],
+  keywords:["no","trabajo","vida","aquí","aqui","país","pais","regreso","vuelvo","carro"],
   options:[
-    {text:"No. Mi vida está en {pais}: {ocupacion}, mis amigos, mi rutina. La voy a visitar y regreso.", rating:"good",
-     feedback:"ESTA es la pregunta clave de tu caso. Respondiste con un 'no' firme y razones concretas para volver. Perfecto."},
-    {text:"Pues uno nunca sabe, depende de las oportunidades.", rating:"bad",
-     feedback:"Acabas de admitir que considerarías quedarte. Es prácticamente una negación automática. Siempre: 'No, vuelvo seguro.'"},
+    {text:"No. Mi vida está en {pais}: {ocupacion}, mi familia, mi carro, mi rutina. Voy de visita y regreso.", rating:"good",
+     feedback:"LA pregunta clave de tu caso. 'No' firme + razones concretas (trabajo, familia, carro). Perfecto."},
+    {text:"Uno nunca sabe, depende de las oportunidades.", rating:"bad",
+     feedback:"Acabas de admitir que considerarías quedarte. Es casi una negación automática. Siempre: 'No, vuelvo seguro.'"},
     {text:"No.", rating:"mid",
-     feedback:"La respuesta correcta, pero muy seca. Refuérzala con tus razones para regresar."}
+     feedback:"Correcto pero muy seco. Refuérzalo con tus razones para regresar."}
   ]},
 { cat:"familia",
-  q:"¿Con quién vive en su país?",
-  keywords:["abuela","tía","tia","vivo","familia","casa","con"],
+  q:"¿Con quién vive en Panamá?",
+  keywords:["abuela","tío","tio","vivo","familia","casa"],
   options:[
-    {text:"Vivo con {vivesCon} en {ciudadOrigen}, {pais}. Mi día a día y mi hogar están con ellas.", rating:"good",
-     feedback:"Vivir con tu familia es un ancla fuerte: tienes un hogar y responsabilidades que te hacen regresar."},
-    {text:"Sola, hago mi vida por mi cuenta.", rating:"mid",
-     feedback:"No es malo, pero si vives con familia, dilo: refuerza tus lazos. Si vives sola, apóyate en empleo, estudios o bienes."},
+    {text:"Vivo con {vivesCon} en {ciudadOrigen}. Mi día a día y mi hogar están con ellos.", rating:"good",
+     feedback:"Vivir con tu familia es un ancla fuerte: tienes hogar y responsabilidades que te hacen regresar."},
+    {text:"Sola, por mi cuenta.", rating:"mid",
+     feedback:"No es malo, pero si vives con familia, dilo: refuerza tus lazos."},
     {text:"Con nadie fijo, voy de un lado a otro.", rating:"bad",
-     feedback:"Sonar sin raíces fijas preocupa al oficial. Menciona un hogar y vínculos estables."}
+     feedback:"Sonar sin raíces fijas preocupa al oficial. Menciona un hogar estable."}
   ]},
-{ cat:"familia",
-  q:"¿Está casada? ¿Tiene hijos o pareja?",
-  keywords:["soltera","casada","pareja","hijos","vivo","familia","novio"],
-  options:[
-    {text:"Soltera, vivo con {vivesCon} en {ciudadOrigen} y tengo responsabilidades con ellas.", rating:"good",
-     feedback:"Honesta y muestras anclas (familia, responsabilidades). Bien."},
-    {text:"Soltera y sin hijos, soy totalmente libre.", rating:"bad",
-     feedback:"'Soy libre' suena a 'puedo quedarme'. Sé honesta, pero menciona otros lazos: trabajo, familia, estudios."},
-    {text:"Tengo pareja aquí y planeamos vernos apenas regrese.", rating:"good",
-     feedback:"Un vínculo esperándote en tu país es una razón fuerte para volver. Bien."}
-  ]},
-/* ---------- FINANZAS ---------- */
 { cat:"finanzas", key:true,
-  q:"¿Quién va a pagar su viaje?",
-  keywords:["yo","ahorros","propio","trabajo","cuenta","mío","mia"],
+  q:"¿Quién paga su viaje?",
+  keywords:["yo","ahorros","trabajo","propio","cuenta","utp"],
   options:[
-    {text:"{pago}. Tengo mis estados de cuenta aquí si los necesita.", rating:"good",
-     feedback:"Independencia financiera + documentos listos = señal muy positiva."},
-    {text:"{visita} me manda todo desde Estados Unidos.", rating:"bad",
+    {text:"{pago}. Trabajo en {ocupacion} y tengo mis estados de cuenta aquí.", rating:"good",
+     feedback:"Independencia financiera + empleo + documentos = señal muy positiva."},
+    {text:"{visita} me manda todo desde allá.", rating:"bad",
      feedback:"Que alguien en EE.UU. pague todo es sospechoso: sugiere dependencia y posible intención de quedarte."},
-    {text:"Entre {visita} y yo lo cubrimos.", rating:"mid",
-     feedback:"Aceptable, pero deja claro qué parte pagas tú. Mientras más cubras tú, mejor se ve."}
+    {text:"Entre {visita} y yo.", rating:"mid",
+     feedback:"Aceptable, pero deja claro qué parte pagas tú. Mientras más cubras tú, mejor."}
   ]},
 { cat:"finanzas",
-  q:"¿A qué se dedica? ¿En qué trabaja?",
-  keywords:["trabajo","empresa","estudio","negocio","empleada","soy","trabajo en"],
+  q:"¿A qué se dedica?",
+  keywords:["trabajo","utp","universidad","empleo","trabajo en"],
   options:[
-    {text:"Trabajo en {ocupacion} desde hace {tiempoOcup}. Pedí vacaciones para este viaje.", rating:"good",
-     feedback:"Específico + mencionas vacaciones = tienes empleo al cual regresar. Excelente ancla."},
+    {text:"Trabajo en {ocupacion}. Pedí permiso/vacaciones para este viaje.", rating:"good",
+     feedback:"Empleo concreto + permiso = tienes a qué regresar. Excelente ancla."},
     {text:"Ahorita no estoy trabajando.", rating:"mid",
-     feedback:"Sin empleo, pierdes un ancla clave. Si es tu caso, enfatiza otros lazos: estudios, familia que depende de ti, propiedades."},
+     feedback:"Sin empleo pierdes un ancla clave. Si es tu caso, enfatiza familia, estudios o bienes (tu carro)."},
     {text:"En varias cosas, depende del mes.", rating:"mid",
-     feedback:"Vago. Da una respuesta concreta aunque seas independiente: 'soy freelance de X, mis clientes son Y'."}
+     feedback:"Vago. Da una respuesta concreta: dónde trabajas y desde cuándo."}
   ]},
 { cat:"finanzas",
-  q:"¿Cuánto gana al mes, más o menos?",
-  keywords:["gano","sueldo","ingreso","mensual","aproximadamente","alcanza"],
+  q:"¿Tiene bienes o ahorros a su nombre en Panamá?",
+  keywords:["carro","ahorros","cuenta","propiedad","sí","si","banco"],
   options:[
-    {text:"Gano alrededor de [monto] al mes, suficiente para cubrir este viaje con mis ahorros.", rating:"good",
-     feedback:"Cifra concreta + conexión con que puedes pagar el viaje. Da seguridad."},
-    {text:"Prefiero no decirlo.", rating:"bad",
-     feedback:"Evadir preguntas económicas genera dudas sobre cómo pagarás el viaje. Responde con naturalidad."},
-    {text:"No sé exactamente, varía mucho.", rating:"mid",
-     feedback:"Ten una cifra aproximada lista. No saber cuánto ganas se ve poco creíble."}
-  ]},
-{ cat:"finanzas",
-  q:"¿Tiene ahorros o algo a su nombre en su país? ¿Propiedades, cuenta bancaria?",
-  keywords:["ahorros","cuenta","propiedad","carro","casa","banco","sí","si"],
-  options:[
-    {text:"Sí, tengo una cuenta de ahorros y [propiedad/vehículo] a mi nombre en {pais}.", rating:"good",
-     feedback:"Bienes y ahorros en tu país son anclas económicas: tienes cosas que te hacen volver."},
+    {text:"Sí: tengo un carro a mi nombre, una cuenta de ahorros y mi empleo en {ocupacion}.", rating:"good",
+     feedback:"Carro + ahorros + empleo son anclas económicas potentes: cosas que te hacen volver."},
     {text:"No tengo nada a mi nombre.", rating:"mid",
-     feedback:"Si no tienes bienes, refuerza otros lazos (empleo, familia, estudios). Lleva estados de cuenta aunque sean modestos."},
+     feedback:"Si no tienes bienes, refuerza otros lazos. Lleva estados de cuenta aunque sean modestos."},
     {text:"Todo lo importante lo tiene mi mamá allá.", rating:"bad",
      feedback:"Decir que tu patrimonio está en EE.UU. sugiere que tu centro de vida ya está allá. Evítalo."}
   ]},
-/* ---------- LAZOS / RAZONES PARA REGRESAR ---------- */
 { cat:"lazos", key:true,
-  q:"¿Qué garantiza que va a regresar a su país?",
-  keywords:["trabajo","familia","estudio","vida","casa","responsabilidades","regreso"],
+  q:"¿Qué garantiza que va a regresar a Panamá?",
+  keywords:["trabajo","familia","carro","vida","casa","regreso","utp"],
   options:[
-    {text:"Mi trabajo, mi familia y mi vida entera están en {pais}. Solo voy de visita {duracion}.", rating:"good",
-     feedback:"Mencionas varios lazos a la vez (lo ideal) y reafirmas que es una visita corta. Excelente."},
+    {text:"Mi trabajo en {ocupacion}, mi familia, mi carro y mi vida entera están en {pais}.", rating:"good",
+     feedback:"Varios lazos a la vez (lo ideal) + visita corta. Excelente."},
     {text:"Mi palabra de que voy a volver.", rating:"bad",
-     feedback:"El oficial no decide con promesas, sino con pruebas. Da lazos concretos: empleo, familia, bienes, estudios."},
+     feedback:"El oficial decide con pruebas, no con promesas. Da lazos concretos."},
     {text:"Pues que tengo mi trabajo allá.", rating:"mid",
-     feedback:"Un solo lazo. Suma varios: familia, estudios, propiedades, compromisos. Más anclas, más confianza."}
+     feedback:"Un solo lazo. Suma varios: familia, carro, estudios. Más anclas, más confianza."}
   ]},
 { cat:"lazos",
-  q:"¿Le dieron permiso en su trabajo para este viaje?",
-  keywords:["sí","si","vacaciones","permiso","carta","jefe","autorizaron"],
+  q:"¿Le dieron permiso en la UTP para este viaje?",
+  keywords:["sí","si","vacaciones","permiso","carta","autorizaron"],
   options:[
-    {text:"Sí, pedí vacaciones y tengo una carta laboral que confirma que regreso a trabajar.", rating:"good",
-     feedback:"Carta laboral con fecha de reincorporación es prueba potente de que vuelves."},
+    {text:"Sí, tengo una carta de la UTP que confirma mi empleo y que regreso a trabajar.", rating:"good",
+     feedback:"Carta laboral con fecha de reincorporación es prueba potente de retorno."},
     {text:"No avisé, simplemente me voy.", rating:"bad",
-     feedback:"Irte sin permiso sugiere que tu empleo no te importa o que no piensas volver. Mala señal."},
-    {text:"Creo que no hay problema con mi jefe.", rating:"mid",
-     feedback:"Consigue una carta de tu empleador autorizando las vacaciones. Es uno de los documentos más útiles."}
+     feedback:"Irte sin permiso sugiere que tu empleo no te importa o que no piensas volver."},
+    {text:"Creo que no hay problema.", rating:"mid",
+     feedback:"Consigue una carta de la UTP autorizando las vacaciones. Es de los documentos más útiles."}
   ]},
-{ cat:"lazos",
-  q:"¿Qué planes tiene para cuando regrese a su país?",
-  keywords:["trabajo","seguir","proyecto","estudio","retomar","reunión","reunion"],
-  options:[
-    {text:"Regreso directo a {ocupacion}; tengo pendientes y compromisos esperándome.", rating:"good",
-     feedback:"Compromisos concretos esperándote son de las mejores pruebas de retorno."},
-    {text:"Descansar y ver qué sigue en mi vida.", rating:"bad",
-     feedback:"Suena a que nada te ata a tu país. Menciona planes concretos, aunque sean pequeños."},
-    {text:"Seguir con mi rutina normal.", rating:"mid",
-     feedback:"Aceptable pero genérico. Sé específica: tu trabajo, un curso, un proyecto, un evento familiar."}
-  ]},
-/* ---------- HISTORIAL DE VIAJES E INMIGRACIÓN ---------- */
 { cat:"historial",
-  q:"¿Ha viajado antes fuera de su país?",
-  keywords:["sí","si","no","viajé","viaje","conozco","países","paises"],
+  q:"¿Ha viajado antes fuera de Panamá?",
+  keywords:["sí","si","no","viajé","viaje","países","paises"],
   options:[
     {text:"Sí, he viajado a [países] y siempre regresé en la fecha prevista.", rating:"good",
-     feedback:"Historial de viajes en regla genera mucha confianza: muestra que respetas las visas y regresas."},
+     feedback:"Historial de viajes en regla genera confianza: respetas las visas y regresas."},
     {text:"No, nunca he salido del país.", rating:"mid",
-     feedback:"Honesto, pero no suma. Compénsalo con anclas fuertes (empleo, familia, bienes) que prueben tu regreso."},
-    {text:"Sí, he viajado muchísimo por todo el mundo.", rating:"good",
-     feedback:"Buen historial migratorio, pero no exageres: solo afirma lo que sea verdad y puedas sustentar."}
-  ]},
-{ cat:"historial",
-  q:"¿Ha estado antes en Estados Unidos?",
-  keywords:["sí","si","no","primera","vez","fui","visité","visite"],
-  options:[
-    {text:"No, esta es mi primera vez.", rating:"good",
-     feedback:"Si es la primera, dilo con calma; es normal. No es punto en contra."},
-    {text:"Sí, fui antes y me quedé más tiempo del permitido.", rating:"bad",
-     feedback:"Haber excedido tu estancia antes es muy grave. Si es tu caso, necesitas asesoría; jamás lo ocultes."},
-    {text:"Sí, fui de turismo y regresé en la fecha que debía.", rating:"good",
-     feedback:"Haber respetado una visa anterior es excelente historial. Menciónalo con seguridad."}
+     feedback:"Honesto, pero no suma. Compénsalo con anclas fuertes (empleo, familia, carro)."},
+    {text:"Sí, muchísimo por todo el mundo.", rating:"good",
+     feedback:"Buen historial, pero no exageres: solo afirma lo que sea verdad y puedas sustentar."}
   ]},
 { cat:"historial", key:true,
-  q:"¿Alguna vez le han negado una visa para Estados Unidos u otro país?",
-  keywords:["no","sí","si","primera","negaron","cambió","cambio"],
+  q:"¿Alguna vez le han negado una visa?",
+  keywords:["no","sí","si","negaron","cambió","cambio","primera"],
   options:[
     {text:"No, nunca me han negado una visa.", rating:"good",
-     feedback:"Si es cierto, dilo tranquila. Pero ojo: solo responde 'no' si de verdad nunca te han negado."},
-    {text:"No (cuando en realidad sí te negaron antes).", rating:"bad",
-     feedback:"NUNCA mientas sobre negaciones previas: están en su sistema. Mentir = negación segura y posible prohibición."},
-    {text:"Sí, hace [tiempo] me negaron, pero ahora mi situación cambió porque [razón].", rating:"good",
-     feedback:"Si te negaron antes, esta es la respuesta correcta: honestidad + explicar qué cambió a tu favor."}
+     feedback:"Si es cierto, dilo tranquila. Solo responde 'no' si de verdad nunca te han negado."},
+    {text:"No (cuando en realidad sí te negaron).", rating:"bad",
+     feedback:"NUNCA mientas sobre negaciones: están en su sistema. Mentir = negación segura y posible prohibición."},
+    {text:"Sí, hace [tiempo], pero ahora mi situación cambió porque [razón].", rating:"good",
+     feedback:"Si te negaron antes, esta es la respuesta correcta: honestidad + qué cambió a tu favor."}
   ]},
-{ cat:"historial",
-  q:"¿Ha tenido algún problema con la ley o con autoridades de inmigración?",
-  keywords:["no","nunca","ningún","ningun","limpio","problema"],
-  options:[
-    {text:"No, nunca he tenido problemas legales ni migratorios.", rating:"good",
-     feedback:"Respuesta limpia y directa. Si es verdad, perfecto."},
-    {text:"Prefiero no entrar en detalles.", rating:"bad",
-     feedback:"Evadir esta pregunta es muy mala señal. Si tienes un antecedente, busca asesoría legal antes y sé honesta."},
-    {text:"Una vez tuve algo menor, pero ya se resolvió.", rating:"mid",
-     feedback:"Si hay un antecedente, sé honesta y breve, y lleva documentos que muestren que se resolvió."}
-  ]},
-/* ---------- PREGUNTAS TRAMPA / CIERRE ---------- */
 { cat:"trampa", key:true, tricky:true,
-  q:"¿Planea trabajar en Estados Unidos durante su visita?",
-  keywords:["no","turismo","visita","trabajar","solo"],
+  q:"¿Planea trabajar en Estados Unidos?",
+  keywords:["no","turismo","mundial","solo","visita"],
   options:[
-    {text:"No, de ninguna manera. Voy solo de turismo y a visitar a {visita}.", rating:"good",
+    {text:"No, de ninguna manera. Voy solo de turismo, al Mundial.", rating:"good",
      feedback:"Un 'no' rotundo es obligatorio. La visa de turista no permite trabajar; cualquier duda aquí es fatal."},
-    {text:"Solo algo pequeño para cubrir gastos, nada formal.", rating:"bad",
-     feedback:"Trabajar con visa de turista es ilegal. Admitirlo = negación inmediata. La respuesta SIEMPRE es no."},
-    {text:"No tengo pensado, pero si surge algo lo vería.", rating:"bad",
+    {text:"Solo algo pequeño para cubrir gastos.", rating:"bad",
+     feedback:"Trabajar con visa de turista es ilegal. Admitirlo = negación inmediata."},
+    {text:"Si surge algo, lo vería.", rating:"bad",
      feedback:"Dejar la puerta abierta a trabajar ya es motivo de negación. Debe ser un 'no' sin matices."}
-  ]},
-{ cat:"trampa", tricky:true,
-  q:"Siendo honesta... ¿ha considerado alguna vez quedarse a vivir en Estados Unidos?",
-  keywords:["no","vida","país","pais","aquí","aqui","regreso","visita"],
-  options:[
-    {text:"No. Mi proyecto de vida está en {pais}; esto es una visita para ver a {visita} y volver.", rating:"good",
-     feedback:"Mantienes la firmeza incluso cuando te tientan a admitir intención de inmigrar. Muy bien."},
-    {text:"Como todo el mundo, alguna vez lo he pensado.", rating:"bad",
-     feedback:"Admitir que lo has pensado, aunque sea casual, es justo lo que buscan para negarte. Mantente firme."},
-    {text:"Tal vez algún día, pero no ahora.", rating:"bad",
-     feedback:"Cualquier 'tal vez' sobre quedarte es bandera roja. Tu intención debe ser claramente temporal."}
   ]},
 { cat:"trampa", key:true,
   q:"Para terminar: ¿por qué debería darle la visa?",
-  keywords:["visita","regreso","trabajo","familia","reglas","temporal","vida"],
+  keywords:["mundial","regreso","trabajo","familia","carro","temporal","visita"],
   options:[
-    {text:"Porque voy solo de visita a {visita} por {duracion} y vuelvo. Mi vida, mi trabajo y mi familia están en {pais}.", rating:"good",
-     feedback:"Resumiste tu caso en una frase: propósito claro + temporal + razones para volver. Cierre perfecto."},
+    {text:"Porque voy de turista al Mundial, por {duracion}, y vuelvo. Mi trabajo, mi familia y mi carro están en {pais}.", rating:"good",
+     feedback:"Resumiste tu caso en una frase: coartada clara + temporal + razones para volver. Cierre perfecto."},
     {text:"Porque me lo merezco, llevo años soñando con ir.", rating:"bad",
-     feedback:"La visa no es un premio al esfuerzo. El oficial necesita certeza de retorno, no de cuánto la deseas."},
-    {text:"Porque cumplo con todos los requisitos.", rating:"mid",
+     feedback:"La visa no es un premio. El oficial necesita certeza de retorno, no de cuánto la deseas."},
+    {text:"Porque cumplo con los requisitos.", rating:"mid",
      feedback:"Frío. Explica POR QUÉ cumples: lazos, plan corto, finanzas, intención temporal."}
   ]}
 ];
 
-/* Etiquetas legibles de categorías para el desglose final */
 const CAT_LABELS = {
-  proposito:"Propósito del viaje",
-  tiempo:"Duración / regreso",
-  alojamiento:"Alojamiento",
-  familia:"Familia y vínculos",
-  finanzas:"Finanzas",
-  lazos:"Lazos con tu país",
-  historial:"Historial de viajes",
-  trampa:"Preguntas trampa"
+  proposito:"Coartada / Mundial", tiempo:"Duración y regreso", alojamiento:"Alojamiento",
+  familia:"Familia (tu mamá)", finanzas:"Finanzas", lazos:"Lazos con Panamá",
+  historial:"Historial de viajes", trampa:"Preguntas trampa"
 };
 
 /* ================================================================
    ESTADO
    ================================================================ */
 const STATE = {
-  outfit:null,
-  questions:[],
-  current:0,
-  confidence:55,           // 0-100
-  score:{good:0,mid:0,bad:0},
-  catScore:{},             // por categoría: {good,total}
-  mode:"easy",
-  answered:false,
-  length:10
+  outfit:"blazer", questions:[], current:0, confidence:55,
+  score:{good:0,mid:0,bad:0}, catScore:{}, mode:"easy", answered:false, length:10
 };
+const OUTFITS = [
+  {id:"blazer",  nm:"Saco/blazer", hn:"Formal, pro", v:"good", c:["#2b4470","#1b2c4d"],
+   note:"Excelente. Discreta y profesional, justo la imagen que conviene."},
+  {id:"vestido", nm:"Vestido formal", hn:"Elegante", v:"good", c:["#7b2d3a","#561d27"],
+   note:"Bien. Elegante sin exagerar. Buena primera impresión."},
+  {id:"blusa",   nm:"Blusa + pantalón", hn:"Casual arreglada", v:"good", c:["#2f7d77","#1f5854"],
+   note:"Perfecto: arreglada y cómoda. No necesitas ir de gala, solo presentable."},
+  {id:"casual",  nm:"Camiseta + jeans", hn:"Muy casual", v:"bad", c:["#c8c2b4","#9a9486"],
+   note:"Demasiado informal. El outfit no decide la visa, pero los primeros segundos cuentan."}
+];
+function outfitColors(){ const o=OUTFITS.find(x=>x.id===STATE.outfit)||OUTFITS[0]; return o.c; }
 
-const OFFICER_REACTIONS = {
-  good:["Entiendo.","Muy bien.","De acuerdo.","Perfecto.","Anotado.","Me queda claro."],
-  mid:["Mmm... está bien.","Vale.","Ya veo.","Continuemos.","De acuerdo, sigamos."],
-  bad:["¿En serio?","Eso no me convence.","No me cuadra eso.","Sea más específica.","Hmm.","No estoy seguro de creerle."]
+const REACT = {
+  good:["Entiendo.","Muy bien.","De acuerdo.","Perfecto.","Anotado."],
+  mid:["Mmm... está bien.","Vale.","Ya veo.","Continuemos."],
+  bad:["¿En serio?","Eso no me convence.","No me cuadra.","Sea más específica.","Hmm."]
 };
-
 function faceFor(c){
-  if(c>=75) return {emoji:"🙂", mood:"El oficial asiente, parece convencido."};
-  if(c>=55) return {emoji:"😐", mood:"El oficial mantiene una cara neutral."};
-  if(c>=35) return {emoji:"🤨", mood:"El oficial te mira con duda."};
-  return {emoji:"😠", mood:"El oficial frunce el ceño, no está convencido."};
+  if(c>=75) return {mood:"happy", label:"El oficial asiente, convencido."};
+  if(c>=55) return {mood:"neutral", label:"El oficial mantiene cara neutral."};
+  if(c>=35) return {mood:"doubt", label:"El oficial te mira con duda."};
+  return {mood:"angry", label:"El oficial frunce el ceño."};
 }
-function meterColor(c){
-  if(c>=70) return "var(--green)";
-  if(c>=45) return "var(--amber)";
-  return "var(--red)";
+function trustColor(c){ return c>=70?"var(--green)":c>=45?"var(--amber)":"var(--red)"; }
+
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function pick(a){return a[Math.floor(Math.random()*a.length)];}
+function applyRating(r){
+  STATE.score[r]++;
+  if(r==="good") STATE.confidence=Math.min(100,STATE.confidence+13);
+  else if(r==="bad") STATE.confidence=Math.max(0,STATE.confidence-16);
+  else STATE.confidence=Math.max(0,STATE.confidence-1);
 }
-
-function shuffle(arr){const a=arr.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
-function pick(arr){return arr[Math.floor(Math.random()*arr.length)];}
-
-function applyRating(rating){
-  STATE.score[rating]++;
-  if(rating==="good") STATE.confidence = Math.min(100, STATE.confidence+13);
-  else if(rating==="bad") STATE.confidence = Math.max(0, STATE.confidence-16);
-  else STATE.confidence = Math.max(0, STATE.confidence-1);
+function recordCat(c,r){
+  if(!STATE.catScore[c]) STATE.catScore[c]={good:0,total:0};
+  STATE.catScore[c].total++;
+  if(r==="good") STATE.catScore[c].good++; else if(r==="mid") STATE.catScore[c].good+=.5;
 }
 
 /* ================================================================
    RENDER
    ================================================================ */
 const app=document.getElementById("app");
-function render(html){app.innerHTML=`<div class="card">${html}</div>`;window.scrollTo(0,0);}
+function render(h){app.innerHTML=`<div class="screen">${h}</div>`;window.scrollTo(0,0);}
 
-/* ---------- Intro ---------- */
 function screenIntro(){
+  const [cm,cs]=outfitColors();
   render(`
-    <span class="badge">SIMULADOR DE ENTREVISTA · VISA B1/B2</span>
-    <h1>Eres ${val("nombre")} 🛂</h1>
-    <p>Vives en ${val("ciudadOrigen")}, ${val("pais")}, con ${val("vivesCon")}. Estás a punto de entrar a la embajada de Estados Unidos para tu entrevista de visa de turista: quieres ir al <b>Mundial 2026</b> y, de paso, visitar a ${val("visita")}. Llevas semanas preparándote, tienes tus papeles en una carpeta y el corazón a mil.</p>
-    <p class="muted">Esto es una práctica realista. Vas a elegir qué ponerte, repasar tus documentos, entrar a la ventanilla y responder al oficial consular. Habrá preguntas fáciles y otras incómodas. El oficial reacciona según cómo respondas. Respira. Empezamos.</p>
-    <div class="btn-row">
-      <button class="btn gold" onclick="screenSetup()">Empezar →</button>
+    <span class="tag">VISA QUEST</span>
+    <div style="text-align:center;margin:6px 0 4px">${cristinaSVG(cm,cs,120)}</div>
+    <h1 class="title" style="text-align:center">${val("nombre").toUpperCase()}</h1>
+    <p class="small" style="text-align:center">Nivel 1: La Embajada de EE.UU.</p>
+    <div class="mission">
+      <div class="mline"><span class="ic">🎯</span><span><b>MISIÓN:</b> Conseguir la visa de turista (B1/B2).</span></div>
+      <div class="mline"><span class="ic">⚽</span><span><b>COARTADA (lo que dices):</b> Vas al Mundial 2026.</span></div>
+      <div class="mline secret"><span class="ic">🤫</span><span><b>OBJETIVO SECRETO:</b> Visitar a tu mamá en ${val("ciudadUS")}. <span class="small">(no lo reveles tú)</span></span></div>
+      <div class="mline rule"><span class="ic">⚖️</span><span><b>REGLA DE ORO:</b> Nunca mientas. Si te preguntan directo por tu familia, di la verdad.</span></div>
     </div>
-    <p class="muted" style="margin-top:18px">💡 Consejo de oro: respuestas <b>cortas, honestas y específicas</b>. Demuestra siempre que vas a <b>regresar</b> a tu país.</p>
+    <p class="small">El oficial reacciona a cada respuesta: gana su <span class="gold">CONFIANZA</span> y consigue la visa. Pierde demasiada y... 214(b).</p>
+    <div class="row"><button class="btn go" onclick="screenSetup()">▶ EMPEZAR</button></div>
   `);
 }
 
-/* ---------- Personalización ---------- */
 function screenSetup(){
   render(`
-    <span class="badge">PASO 1 · TUS DATOS (OPCIONAL)</span>
-    <h1>Hazlo con tu historia real</h1>
-    <p class="muted">Rellena lo que quieras y las "buenas respuestas" del simulador usarán <b>tus datos reales</b>. Puedes dejar campos en blanco o saltarte este paso.</p>
+    <span class="tag">PASO 1 · TUS DATOS</span>
+    <h2 class="title sm">Personaliza tu partida</h2>
+    <p class="small">Edita lo que quieras: las "buenas respuestas" usarán TUS datos reales. Puedes saltarte este paso.</p>
     <div class="grid2">
-      <div class="field"><label>Tu nombre</label><input id="f_nombre" placeholder="Cristina"><div class="ex">Ej: Cristina</div></div>
-      <div class="field"><label>Tu país</label><input id="f_pais" placeholder="Panamá"><div class="ex">Ej: Panamá</div></div>
-      <div class="field"><label>Tu ciudad</label><input id="f_ciudadOrigen" placeholder="La Chorrera"><div class="ex">Donde vives</div></div>
-      <div class="field"><label>Con quién vives</label><input id="f_vivesCon" placeholder="mi abuela y mi tía"><div class="ex">Tu hogar en Panamá</div></div>
-      <div class="field"><label>A quién visitas</label><input id="f_visita" placeholder="mi mamá"><div class="ex">Ej: mi mamá</div></div>
-      <div class="field"><label>Ciudad de EE.UU.</label><input id="f_ciudadUS" placeholder="Houston"><div class="ex">Donde está tu mamá</div></div>
-      <div class="field"><label>Cuánto tiempo te quedas</label><input id="f_duracion" placeholder="dos semanas"><div class="ex">Ej: dos semanas</div></div>
-      <div class="field"><label>En qué trabajas / estudias</label><input id="f_ocupacion" placeholder="una tienda de ropa"><div class="ex">Ej: una tienda de ropa</div></div>
-      <div class="field"><label>Hace cuánto en eso</label><input id="f_tiempoOcup" placeholder="tres años"><div class="ex">Ej: tres años</div></div>
-      <div class="field"><label>Dónde te hospedas</label><input id="f_alojamiento" placeholder="en casa de una amiga de la familia"><div class="ex">Ej: casa de una amiga</div></div>
-      <div class="field"><label>Quién paga el viaje</label><input id="f_pago" placeholder="yo, con mis ahorros"><div class="ex">Ej: yo, con mis ahorros</div></div>
+      <div class="field"><label>Nombre</label><input id="f_nombre"><div class="ex">Cristina</div></div>
+      <div class="field"><label>País</label><input id="f_pais"><div class="ex">Panamá</div></div>
+      <div class="field"><label>Tu ciudad</label><input id="f_ciudadOrigen"><div class="ex">La Chorrera</div></div>
+      <div class="field"><label>Vives con</label><input id="f_vivesCon"><div class="ex">mi abuela y mi tío</div></div>
+      <div class="field"><label>A quién visitas</label><input id="f_visita"><div class="ex">mi mamá</div></div>
+      <div class="field"><label>Ciudad EE.UU.</label><input id="f_ciudadUS"><div class="ex">Nueva Jersey</div></div>
+      <div class="field"><label>Trabajo/estudio</label><input id="f_ocupacion"><div class="ex">la UTP en Panamá Pacífico</div></div>
+      <div class="field"><label>Cuánto te quedas</label><input id="f_duracion"><div class="ex">dos semanas</div></div>
+      <div class="field"><label>Dónde te hospedas</label><input id="f_alojamiento"><div class="ex">casa de una amiga</div></div>
+      <div class="field"><label>Quién paga</label><input id="f_pago"><div class="ex">yo, con mis ahorros</div></div>
     </div>
-    <div class="btn-row">
-      <button class="btn ghost" onclick="screenIntro()">← Atrás</button>
+    <div class="row">
+      <button class="btn sm" onclick="screenIntro()">◀ ATRÁS</button>
       <div class="spacer"></div>
-      <button class="btn ghost" onclick="goOutfit()">Saltar</button>
-      <button class="btn gold" onclick="saveSetup()">Guardar y seguir →</button>
+      <button class="btn sm" onclick="goOutfit()">SALTAR</button>
+      <button class="btn go sm" onclick="saveSetup()">GUARDAR ▶</button>
     </div>
   `);
-  // Rellenar si ya había datos
-  for(const k in PROFILE){ const el=document.getElementById("f_"+k); if(el) el.value=PROFILE[k]; }
+  for(const k in PROFILE){const el=document.getElementById("f_"+k);if(el)el.value=PROFILE[k];}
 }
-function saveSetup(){
-  for(const k in PROFILE){ const el=document.getElementById("f_"+k); if(el) PROFILE[k]=el.value; }
-  goOutfit();
-}
+function saveSetup(){for(const k in PROFILE){const el=document.getElementById("f_"+k);if(el)PROFILE[k]=el.value;}goOutfit();}
 
-/* ---------- Outfit ---------- */
-const OUTFITS=[
-  {id:"blazer",emoji:"🧥",name:"Saco/blazer + blusa",hint:"Formal, profesional",verdict:"good",
-   note:"Excelente. Discreta y profesional, justo la imagen que conviene dar."},
-  {id:"vestido",emoji:"👗",name:"Vestido formal",hint:"Elegante y sobrio",verdict:"good",
-   note:"Bien. Elegante sin exagerar. Buena primera impresión."},
-  {id:"casual_arreglada",emoji:"👚",name:"Blusa + pantalón",hint:"Casual arreglada",verdict:"good",
-   note:"Perfecto: arreglada y cómoda. No necesitas ir de gala, solo presentable."},
-  {id:"muycasual",emoji:"👕",name:"Camiseta + jeans rotos",hint:"Muy casual",verdict:"bad",
-   note:"Demasiado informal. El outfit no decide la visa, pero los primeros segundos cuentan. Mejor algo más cuidado."}
-];
 function goOutfit(){
   render(`
-    <span class="badge">PASO 2 · LA VESTIMENTA</span>
-    <h1>¿Qué te vas a poner?</h1>
-    <p class="muted">El outfit no decide tu visa, pero la primera impresión sí cuenta. A ${val("nombre")} le gusta la ropa estilo saco/blazer — elige y seguimos.</p>
-    <div class="outfit-grid" id="outfits"></div>
-    <div id="outfitNote"></div>
-    <div class="btn-row">
-      <button class="btn ghost" onclick="screenSetup()">← Atrás</button>
+    <span class="tag">PASO 2 · VESTIMENTA</span>
+    <h2 class="title sm">¿Qué te pones?</h2>
+    <p class="small">No decide la visa, pero la primera impresión cuenta. (A ${val("nombre")} le gusta el estilo saco.)</p>
+    <div class="outfit-grid" id="og"></div>
+    <div id="onote"></div>
+    <div class="row">
+      <button class="btn sm" onclick="screenSetup()">◀ ATRÁS</button>
       <div class="spacer"></div>
-      <button class="btn gold" id="nextOutfit" disabled onclick="goDocs()">Siguiente →</button>
+      <button class="btn go sm" id="nx" onclick="goDocs()">SIGUIENTE ▶</button>
     </div>
   `);
-  const grid=document.getElementById("outfits");
+  const g=document.getElementById("og");
   OUTFITS.forEach(o=>{
     const d=document.createElement("div");
-    d.className="outfit";
-    d.innerHTML=`<span class="emoji">${o.emoji}</span><span class="name">${o.name}</span><span class="hint">${o.hint}</span>`;
-    d.onclick=()=>selectOutfit(o.id,d);
-    grid.appendChild(d);
+    d.className="outfit"+(STATE.outfit===o.id?" sel":"");
+    d.innerHTML=`${cristinaSVG(o.c[0],o.c[1],84)}<div class="nm">${o.nm}</div><div class="hn">${o.hn}</div>`;
+    d.onclick=()=>selOutfit(o.id,d);
+    g.appendChild(d);
   });
+  showOutfitNote();
 }
-function selectOutfit(id,el){
+function selOutfit(id,el){
   STATE.outfit=id;
-  document.querySelectorAll(".outfit").forEach(o=>o.classList.remove("selected"));
-  el.classList.add("selected");
-  const o=OUTFITS.find(x=>x.id===id);
-  const cls=o.verdict==="good"?"good":o.verdict==="mid"?"mid":"bad";
-  document.getElementById("outfitNote").innerHTML=`<div class="feedback ${cls}"><strong>Nota</strong>${o.note}</div>`;
-  document.getElementById("nextOutfit").disabled=false;
+  document.querySelectorAll(".outfit").forEach(x=>x.classList.remove("sel"));
+  el.classList.add("sel");
+  showOutfitNote();
+}
+function showOutfitNote(){
+  const o=OUTFITS.find(x=>x.id===STATE.outfit);
+  const cls=o.v==="good"?"good":o.v==="mid"?"mid":"bad";
+  document.getElementById("onote").innerHTML=`<div class="fb ${cls}"><span class="rk">NOTA</span>${o.note}</div>`;
 }
 
-/* ---------- Documentos ---------- */
 const DOCS=[
-  {t:"<b>Pasaporte</b> vigente + cita/confirmación DS-160"},
-  {t:"<b>Carta de invitación</b> de la persona donde te quedas (con su dirección)"},
-  {t:"<b>Estados de cuenta</b> bancarios y comprobante de ahorros"},
-  {t:"<b>Carta laboral</b> que confirme tu empleo y que regresas a trabajar"},
-  {t:"<b>Reserva de vuelo</b> ida y vuelta (o itinerario con fecha de regreso)"},
-  {t:"<b>Comprobantes de lazos</b>: propiedades, estudios, recibos a tu nombre"}
+  "<b>Pasaporte</b> + confirmación del <b>DS-160</b>",
+  "<b>Entradas del Mundial 2026</b> (¡tu coartada!)",
+  "<b>Carta de la UTP</b> (empleo + permiso)",
+  "<b>Estados de cuenta</b> y ahorros",
+  "<b>Título del carro</b> a tu nombre",
+  "<b>Vuelo ida y vuelta</b> reservado"
 ];
 function goDocs(){
   render(`
-    <span class="badge">PASO 3 · LA CARPETA</span>
-    <h1>Prepara tus documentos</h1>
-    <p class="muted">El oficial casi nunca pide todo, pero debes <b>llevarlo listo</b>. Marca lo que llevarías. (Esto es solo repaso — no afecta el resultado.)</p>
-    <div id="docList"></div>
-    <div class="btn-row">
-      <button class="btn ghost" onclick="goOutfit()">← Atrás</button>
+    <span class="tag">PASO 3 · INVENTARIO</span>
+    <h2 class="title sm">Prepara tu carpeta</h2>
+    <p class="small">El oficial casi nunca pide todo, pero hay que LLEVARLO listo. Marca lo que llevarías.</p>
+    <div id="dl"></div>
+    <div class="row">
+      <button class="btn sm" onclick="goOutfit()">◀ ATRÁS</button>
       <div class="spacer"></div>
-      <button class="btn gold" onclick="goEmbassy()">Ir a la embajada →</button>
+      <button class="btn go sm" onclick="goEmbassy()">A LA EMBAJADA ▶</button>
     </div>
   `);
-  const list=document.getElementById("docList");
-  DOCS.forEach((d,i)=>{
-    const el=document.createElement("div");
-    el.className="doc";
-    el.innerHTML=`<div class="box"></div><div class="txt">${d.t}</div>`;
-    el.onclick=()=>{el.classList.toggle("checked");el.querySelector(".box").textContent=el.classList.contains("checked")?"✓":"";};
-    list.appendChild(el);
+  const l=document.getElementById("dl");
+  DOCS.forEach(t=>{
+    const e=document.createElement("div");e.className="doc";
+    e.innerHTML=`<div class="bx"></div><div>${t}</div>`;
+    e.onclick=()=>{e.classList.toggle("on");e.querySelector(".bx").textContent=e.classList.contains("on")?"✓":"";};
+    l.appendChild(e);
   });
 }
 
-/* ---------- Embajada ---------- */
 function goEmbassy(){
   render(`
-    <span class="badge">EMBAJADA DE EE.UU.</span>
-    <h1>Llegaste 🏛️</h1>
-    <p>Pasaste la fila, el control de seguridad y la sala de espera. De repente, una voz por el altavoz dice tu número.</p>
-    <p style="font-size:21px;text-align:center;color:var(--navy);font-weight:bold;margin:24px 0">"Ventanilla 7, por favor."</p>
-    <p>Caminas hacia la ventanilla. Detrás del vidrio, un oficial consular te espera y revisa una pantalla.</p>
-    <p class="muted">Recuerda: mira a los ojos, responde corto y directo, no inventes nada. Si no sabes algo, dilo. La entrevista real dura solo 3–5 minutos.</p>
-    <div class="field" style="max-width:320px">
-      <label>¿Cuántas preguntas quieres practicar?</label>
-      <div class="mode-toggle" style="margin-top:6px">
-        <button id="len10" class="active" onclick="setLen(10,this)">Corta (10)</button>
-        <button id="len16" onclick="setLen(16,this)">Larga (16)</button>
+    <span class="tag">EMBAJADA DE EE.UU.</span>
+    <h2 class="title sm">Ventanilla 7</h2>
+    <p>Pasaste la fila, el control y la espera. El altavoz suena:</p>
+    <p class="gold" style="text-align:center;font-family:'Press Start 2P';font-size:11px;line-height:1.6">"VENTANILLA 7,<br>POR FAVOR."</p>
+    <p class="small">Mira a los ojos. Responde corto y directo. No inventes. La entrevista real dura 3–5 minutos.</p>
+    <div class="field" style="max-width:340px">
+      <label>¿Cuántas preguntas?</label>
+      <div class="modes">
+        <button id="L10" class="on" onclick="setLen(10,this)">CORTA · 10</button>
+        <button id="L16" onclick="setLen(16,this)">LARGA · 16</button>
       </div>
     </div>
-    <div class="btn-row">
-      <button class="btn ghost" onclick="goDocs()">← Atrás</button>
+    <div class="row">
+      <button class="btn sm" onclick="goDocs()">◀ ATRÁS</button>
       <div class="spacer"></div>
-      <button class="btn gold" onclick="startInterview()">Acercarse a la ventanilla →</button>
+      <button class="btn green sm" onclick="startInterview()">ACERCARSE ▶</button>
     </div>
   `);
 }
-function setLen(n,btn){
-  STATE.length=n;
-  document.querySelectorAll(".mode-toggle button").forEach(b=>b.classList.remove("active"));
-  btn.classList.add("active");
-}
+function setLen(n,b){STATE.length=n;document.querySelectorAll(".modes button").forEach(x=>x.classList.remove("on"));b.classList.add("on");}
 
-/* ---------- Selección balanceada de preguntas ---------- */
 function buildInterview(n){
   const keys=QUESTIONS.filter(q=>q.key);
   const rest=shuffle(QUESTIONS.filter(q=>!q.key));
-  let sel=shuffle(keys).slice(0, Math.min(keys.length, Math.ceil(n*0.6)));
-  for(const q of rest){ if(sel.length>=n) break; sel.push(q); }
+  let sel=shuffle(keys).slice(0,Math.min(keys.length,Math.ceil(n*0.6)));
+  for(const q of rest){if(sel.length>=n)break;sel.push(q);}
   sel=sel.slice(0,n);
-  // Ordenar para que fluya: propósito primero, trampa/cierre al final
   const order={proposito:1,tiempo:2,alojamiento:3,familia:4,finanzas:5,lazos:6,historial:7,trampa:8};
   return shuffle(sel).sort((a,b)=>(order[a.cat]||5)-(order[b.cat]||5));
 }
-
 function startInterview(){
   STATE.questions=buildInterview(STATE.length);
-  STATE.current=0;
-  STATE.confidence=55;
-  STATE.score={good:0,mid:0,bad:0};
-  STATE.catScore={};
+  STATE.current=0;STATE.confidence=55;STATE.score={good:0,mid:0,bad:0};STATE.catScore={};
   renderQuestion();
+}
+
+function trustCells(c){
+  const f=Math.round(c/10);let s="";
+  for(let i=0;i<10;i++) s+=`<div class="cell${i<f?" f":""}" style="${i<f?`background:${trustColor(c)}`:""}"></div>`;
+  return s;
 }
 
 function renderQuestion(){
@@ -776,252 +742,181 @@ function renderQuestion(){
   const face=faceFor(STATE.confidence);
   STATE.answered=false;
   render(`
-    <div class="embassy">
-      <div class="embassy-header">
-        <span>U.S. EMBASSY · CONSULAR SECTION</span>
-        <span>Pregunta ${STATE.current+1} / ${STATE.questions.length}</span>
+    <div class="booth">
+      <div class="booth-top"><span>U.S. EMBASSY</span><span>${STATE.current+1}/${STATE.questions.length}</span></div>
+      <div class="stage">
+        <div class="counter"></div><div class="glass"></div>
+        <div class="off-wrap"><div id="offSprite">${officerSVG(face.mood,116)}</div><div class="off-name">OFICIAL · V7</div></div>
       </div>
-      <div class="window">
-        <div class="officer" id="officerFace">${face.emoji}</div>
-        <div class="officer-info">
-          <div class="officer-name">OFICIAL CONSULAR · VENTANILLA 7</div>
-          <div class="officer-mood" id="officerMood">${face.mood}</div>
-          <span class="cat-chip">${CAT_LABELS[q.cat]||""}</span>
-        </div>
+      <div class="trust">
+        <div class="trust-lbl"><span>CONFIANZA</span><span id="cPct">${STATE.confidence}%</span></div>
+        <div class="cells" id="cCells">${trustCells(STATE.confidence)}</div>
       </div>
-      <div class="meter-wrap">
-        <div class="meter-label"><span>Confianza del oficial</span><span id="confPct">${STATE.confidence}%</span></div>
-        <div class="meter"><div class="meter-fill" id="confFill" style="width:${STATE.confidence}%;background:${meterColor(STATE.confidence)}"></div></div>
-      </div>
-      <div class="speech"><span class="label">EL OFICIAL PREGUNTA</span>${fills(q.q)}</div>
+      <p class="small" id="offMood" style="margin:8px 0 0;text-align:center">${face.label}</p>
     </div>
 
-    <div class="mode-toggle">
-      <button class="${STATE.mode==='easy'?'active':''}" onclick="setMode('easy',this)">Modo fácil · escoger respuesta</button>
-      <button class="${STATE.mode==='hard'?'active':''}" onclick="setMode('hard',this)">Modo difícil · responder yo</button>
+    <div class="dialog">
+      <div class="who">▶ OFICIAL CONSULAR</div>
+      <div class="qtxt">${fills(q.q)} <span class="blink">▶</span></div>
     </div>
 
-    <div id="answerArea"></div>
-    <div id="feedbackArea"></div>
-    <div class="btn-row" id="navArea">
-      <button class="btn ghost sm" onclick="confirmQuit()">Salir</button>
+    <div class="modes">
+      <button class="${STATE.mode==='easy'?'on':''}" onclick="setMode('easy',this)">FÁCIL · ELEGIR</button>
+      <button class="${STATE.mode==='hard'?'on':''}" onclick="setMode('hard',this)">DIFÍCIL · ESCRIBIR</button>
     </div>
+
+    <div id="ans"></div>
+    <div id="fb"></div>
+    <div class="row" id="nav"><button class="btn sm" onclick="confirmQuit()">SALIR</button></div>
   `);
   if(STATE.mode==="easy") renderEasy(); else renderHard();
 }
-
-function setMode(m,btn){
-  STATE.mode=m;
-  document.querySelectorAll(".mode-toggle button").forEach(b=>b.classList.remove("active"));
-  btn.classList.add("active");
-  if(STATE.answered) return;
-  if(m==="easy") renderEasy(); else renderHard();
+function setMode(m,b){
+  STATE.mode=m;document.querySelectorAll(".modes button").forEach(x=>x.classList.remove("on"));b.classList.add("on");
+  if(STATE.answered)return;
+  if(m==="easy")renderEasy();else renderHard();
 }
-
 function renderEasy(){
   const q=STATE.questions[STATE.current];
   const opts=shuffle(q.options);
-  const area=document.getElementById("answerArea");
-  area.innerHTML=`<div class="options">${
-    opts.map((o,i)=>`<button class="option" data-i="${i}" onclick="pickOption(${i})"><span class="num">${i+1}</span><span>${fills(o.text)}</span></button>`).join("")
-  }</div>`;
-  area.dataset.opts=JSON.stringify(opts);
-  document.getElementById("feedbackArea").innerHTML="";
+  const a=document.getElementById("ans");
+  a.innerHTML=`<div class="opts">${opts.map((o,i)=>
+    `<button class="opt" data-i="${i}" onclick="pickOption(${i})"><span class="sel">▶</span><span class="k">${i+1}</span><span>${fills(o.text)}</span></button>`).join("")}</div>`;
+  a.dataset.opts=JSON.stringify(opts);
+  document.getElementById("fb").innerHTML="";
 }
-
 function renderHard(){
-  const area=document.getElementById("answerArea");
-  area.innerHTML=`
-    <textarea id="freeAnswer" placeholder="Escribe (o di en voz alta y luego escribe) lo que responderías... Sé breve y específica."></textarea>
-    <div class="btn-row"><button class="btn" onclick="submitFree()">Responder al oficial</button></div>
-  `;
-  document.getElementById("feedbackArea").innerHTML="";
+  document.getElementById("ans").innerHTML=`
+    <textarea id="fa" placeholder="Escribe lo que responderías... corto y específico."></textarea>
+    <div class="row"><button class="btn green sm" onclick="submitFree()">RESPONDER</button></div>`;
+  document.getElementById("fb").innerHTML="";
 }
-
-function updateMeter(){
-  const face=faceFor(STATE.confidence);
-  const f=document.getElementById("officerFace");
-  const m=document.getElementById("officerMood");
-  const fill=document.getElementById("confFill");
-  const pct=document.getElementById("confPct");
-  if(f){f.textContent=face.emoji;f.style.transform="scale(1.15)";setTimeout(()=>f.style.transform="scale(1)",200);}
-  if(m) m.textContent=face.mood;
-  if(fill){fill.style.width=STATE.confidence+"%";fill.style.background=meterColor(STATE.confidence);}
-  if(pct) pct.textContent=STATE.confidence+"%";
+function updateOfficer(){
+  const f=faceFor(STATE.confidence);
+  const s=document.getElementById("offSprite"),m=document.getElementById("offMood"),
+        c=document.getElementById("cCells"),p=document.getElementById("cPct");
+  if(s)s.innerHTML=officerSVG(f.mood,116);
+  if(m)m.textContent=f.label;
+  if(c)c.innerHTML=trustCells(STATE.confidence);
+  if(p)p.textContent=STATE.confidence+"%";
 }
-
-function recordCat(cat,rating){
-  if(!STATE.catScore[cat]) STATE.catScore[cat]={good:0,total:0};
-  STATE.catScore[cat].total++;
-  if(rating==="good") STATE.catScore[cat].good++;
-  else if(rating==="mid") STATE.catScore[cat].good+=0.5;
-}
-
 function pickOption(i){
-  if(STATE.answered) return;
-  STATE.answered=true;
+  if(STATE.answered)return;STATE.answered=true;
   const q=STATE.questions[STATE.current];
-  const area=document.getElementById("answerArea");
-  const opts=JSON.parse(area.dataset.opts);
-  const chosen=opts[i];
-  applyRating(chosen.rating);
-  recordCat(q.cat,chosen.rating);
-  updateMeter();
-
-  const goodIdx=opts.findIndex(o=>o.rating==="good");
-  document.querySelectorAll(".option").forEach((btn,idx)=>{
-    btn.disabled=true;
-    if(idx===i) btn.classList.add("picked",chosen.rating);
-    else if(idx===goodIdx && chosen.rating!=="good") btn.classList.add("reveal-good");
-    else btn.classList.add("dim");
+  const opts=JSON.parse(document.getElementById("ans").dataset.opts);
+  const ch=opts[i];
+  applyRating(ch.rating);recordCat(q.cat,ch.rating);updateOfficer();
+  const gi=opts.findIndex(o=>o.rating==="good");
+  document.querySelectorAll(".opt").forEach((b,idx)=>{
+    b.disabled=true;
+    if(idx===i)b.classList.add("pick",ch.rating);
+    else if(idx===gi&&ch.rating!=="good")b.classList.add("revealgood");
+    else b.classList.add("dim");
   });
-
-  let modelHtml="";
-  if(chosen.rating!=="good" && goodIdx>=0){
-    modelHtml=`<div class="model-ans"><b>✓ La respuesta más fuerte era:</b> "${fills(opts[goodIdx].text)}"</div>`;
-  }
-  showFeedback(chosen.rating, pick(OFFICER_REACTIONS[chosen.rating]), chosen.feedback, modelHtml);
+  let extra="";
+  if(ch.rating!=="good"&&gi>=0) extra=`<div class="model"><b>✓ La más fuerte era:</b> "${fills(opts[gi].text)}"</div>`;
+  showFB(ch.rating,pick(REACT[ch.rating]),ch.feedback,extra);
   showNext();
 }
-
 function submitFree(){
-  if(STATE.answered) return;
-  const text=document.getElementById("freeAnswer").value.trim();
-  if(text.length<3){alert("Escribe algo primero 🙂");return;}
+  if(STATE.answered)return;
+  const t=document.getElementById("fa").value.trim();
+  if(t.length<3){alert("Escribe algo primero.");return;}
   STATE.answered=true;
   const q=STATE.questions[STATE.current];
-  const rating=evaluateFree(text,q);
-  applyRating(rating);
-  recordCat(q.cat,rating);
-  updateMeter();
-  document.getElementById("freeAnswer").disabled=true;
-
+  const r=evalFree(t,q);
+  applyRating(r);recordCat(q.cat,r);updateOfficer();
+  document.getElementById("fa").disabled=true;
   const good=q.options.find(o=>o.rating==="good");
-  const modelHtml=good?`<div class="model-ans"><b>💡 Respuesta modelo:</b> "${fills(good.text)}"</div>`:"";
-  showFeedback(rating, pick(OFFICER_REACTIONS[rating]), freeTip(rating,q), modelHtml);
+  const extra=good?`<div class="model"><b>💡 Respuesta modelo:</b> "${fills(good.text)}"</div>`:"";
+  showFB(r,pick(REACT[r]),freeTip(r),extra);
   showNext();
 }
-
-function evaluateFree(text,q){
+function evalFree(text,q){
   const t=" "+text.toLowerCase()+" ";
-  const words=text.trim().split(/\s+/).length;
+  const w=text.trim().split(/\s+/).length;
   const hits=(q.keywords||[]).filter(k=>t.includes(k)).length;
-  const redFlags=["oportunidad","quedarme","quedarme a vivir","mejor vida","trabajar all","buscar trabajo","tal vez","quizá","quiza","no sé si vuelv","no se si vuelv","depende de las oportunidad","ver cómo me va","ver como me va"];
-  const redHits=redFlags.filter(r=>t.includes(r)).length;
-  if(redHits>=1) return "bad";
-  if(words<4) return "mid";
-  if(hits>=2 && words>=6 && words<=70) return "good";
-  if(hits>=1) return "mid";
+  const red=["oportunidad","quedarme","mejor vida","trabajar all","buscar trabajo","tal vez","quizá","quiza","ver cómo me va","ver como me va","no sé si","no se si"];
+  if(red.filter(r=>t.includes(r)).length>=1)return "bad";
+  if(w<4)return "mid";
+  if(hits>=2&&w>=6&&w<=70)return "good";
+  if(hits>=1)return "mid";
   return "mid";
 }
-function freeTip(rating,q){
-  if(rating==="good") return "Buena respuesta: tocaste los puntos clave sin extenderte de más. Compárala con la respuesta modelo de abajo.";
-  if(rating==="bad")  return "Cuidado: usaste palabras que encienden alarmas (como 'oportunidad', 'quedarme', 'tal vez') o sonaste indecisa. Reformula con foco en que vas de visita y regresas. Mira la respuesta modelo.";
-  return "Aceptable, pero mejorable: sé más concreta (fechas, lugares, a quién visitas) y deja claro que vas a regresar. Fíjate en la respuesta modelo de abajo.";
+function freeTip(r){
+  if(r==="good")return "Buena respuesta: tocaste los puntos clave sin extenderte. Compárala con la modelo.";
+  if(r==="bad")return "Cuidado: usaste palabras que encienden alarmas ('oportunidad', 'quedarme', 'tal vez') o sonaste indecisa. Reformula hacia 'voy de visita y regreso'. Mira la modelo.";
+  return "Aceptable pero mejorable: sé más concreta (fechas, lugares) y deja claro que regresas. Fíjate en la modelo.";
 }
-
-function showFeedback(rating,reaction,explanation,extra=""){
-  document.getElementById("feedbackArea").innerHTML=`
-    <div class="feedback ${rating}">
-      <strong>Reacción del oficial</strong>
-      <em>"${reaction}"</em>
-      <div style="margin-top:10px">${explanation}</div>
-      ${extra}
-    </div>`;
+function showFB(r,react,exp,extra=""){
+  document.getElementById("fb").innerHTML=`<div class="fb ${r}"><span class="rk">REACCIÓN DEL OFICIAL</span>
+    <div class="react">"${react}"</div><div style="margin-top:8px">${exp}</div>${extra}</div>`;
 }
-
 function showNext(){
-  const isLast=STATE.current===STATE.questions.length-1;
-  document.getElementById("navArea").innerHTML=`
-    <button class="btn ghost sm" onclick="confirmQuit()">Salir</button>
-    <div class="spacer"></div>
-    <button class="btn gold" onclick="nextQuestion()">${isLast?"Ver veredicto →":"Siguiente pregunta →"}</button>`;
+  const last=STATE.current===STATE.questions.length-1;
+  document.getElementById("nav").innerHTML=`<button class="btn sm" onclick="confirmQuit()">SALIR</button>
+    <div class="spacer"></div><button class="btn go sm" onclick="nextQuestion()">${last?"VEREDICTO ▶":"SIGUIENTE ▶"}</button>`;
 }
-function nextQuestion(){
-  if(STATE.current<STATE.questions.length-1){STATE.current++;renderQuestion();}
-  else screenResult();
-}
-function confirmQuit(){ if(confirm("¿Salir de la entrevista? Perderás el progreso de esta práctica.")) screenIntro(); }
+function nextQuestion(){if(STATE.current<STATE.questions.length-1){STATE.current++;renderQuestion();}else screenResult();}
+function confirmQuit(){if(confirm("¿Salir? Perderás el progreso."))screenIntro();}
 
-/* ---------- Resultado ---------- */
 function screenResult(){
-  const {good,mid,bad}=STATE.score;
-  const conf=STATE.confidence;
-  let stamp,stampClass,title,message;
-
-  if(conf>=70 && bad<=1){
-    stamp="VISA APROBADA"; stampClass="approved";
-    title="El oficial sonríe levemente: \"Su visa fue aprobada. Que tenga buen viaje.\"";
-    message="¡Excelente, "+val("nombre")+"! Respondiste con claridad, mostraste razones sólidas para regresar a tu país y no caíste en banderas rojas. Esa es exactamente la actitud para la entrevista real.";
-  } else if(conf<40 || bad>=4){
-    stamp="VISA NEGADA"; stampClass="denied";
-    title="El oficial desliza un papel: \"Lo siento, no califica en este momento.\" (formulario 214(b))";
-    message="Varias respuestas no convencieron al oficial. No te desanimes: esto es práctica. Repasa los puntos marcados en rojo, enfócate en demostrar que regresas, y vuelve a intentarlo. En la vida real podrías volver a aplicar.";
-  } else {
-    stamp="EN REVISIÓN"; stampClass="pending";
-    title="El oficial dice: \"Su caso necesita revisión adicional.\" (processing administrativo)";
-    message="Estuviste cerca, pero algunas respuestas dejaron dudas. Repasa lo marcado en amarillo y rojo, afina tus razones para regresar, y prueba de nuevo. Vas por buen camino.";
+  const {good,mid,bad}=STATE.score,conf=STATE.confidence;
+  let stamp,cls,title,msg;
+  if(conf>=70&&bad<=1){stamp="VISA APROBADA";cls="app";
+    title="\"Su visa fue aprobada. Buen viaje.\"";
+    msg="¡Lo lograste, "+val("nombre")+"! Mantuviste la coartada del Mundial, mostraste lazos fuertes con Panamá y no caíste en banderas rojas. Esa es la actitud.";}
+  else if(conf<40||bad>=4){stamp="VISA NEGADA";cls="den";
+    title="\"Lo siento, no califica.\" (formulario 214(b))";
+    msg="Varias respuestas no convencieron al oficial. Es práctica: repasa lo marcado en rojo, enfócate en que REGRESAS, e inténtalo otra vez.";}
+  else{stamp="EN REVISIÓN";cls="pen";
+    title="\"Su caso necesita revisión adicional.\"";
+    msg="Estuviste cerca, pero algunas respuestas dejaron dudas. Afina lo amarillo/rojo y prueba de nuevo. Vas por buen camino.";}
+  let cats="";
+  for(const c in STATE.catScore){
+    const x=STATE.catScore[c],p=Math.round(x.good/x.total*100);
+    const col=p>=70?"var(--green)":p>=40?"var(--amber)":"var(--red)";
+    cats+=`<div class="cr"><span class="nm">${CAT_LABELS[c]||c}</span><div class="bar"><span style="width:${p}%;background:${col}"></span></div><span style="width:36px;text-align:right;color:#9fb0d6">${p}%</span></div>`;
   }
-
-  // Desglose por categoría
-  let catRows="";
-  for(const cat in STATE.catScore){
-    const c=STATE.catScore[cat];
-    const pct=Math.round((c.good/c.total)*100);
-    const color=pct>=70?"var(--green)":pct>=40?"var(--amber)":"var(--red)";
-    catRows+=`<div class="row"><span class="name">${CAT_LABELS[cat]||cat}</span><div class="bar"><span style="width:${pct}%;background:${color}"></span></div><span style="font-size:12px;color:#666;width:34px;text-align:right">${pct}%</span></div>`;
-  }
-
+  const [cm,cs]=outfitColors();
   render(`
-    <span class="badge">VEREDICTO</span>
-    <h1>Resultado de tu entrevista</h1>
-    <div class="center"><span class="stamp ${stampClass}">${stamp}</span></div>
-    <p class="center" style="font-style:italic;color:#555">${title}</p>
-    <p>${message}</p>
-
-    <div class="score-row">
-      <div class="score-box g"><span class="num">${good}</span><span class="lbl">EXCELENTES</span></div>
-      <div class="score-box m"><span class="num">${mid}</span><span class="lbl">REGULARES</span></div>
-      <div class="score-box b"><span class="num">${bad}</span><span class="lbl">FLOJAS</span></div>
+    <span class="tag">VEREDICTO</span>
+    <div style="text-align:center">${cristinaSVG(cm,cs,90)}<br><span class="stamp ${cls}">${stamp}</span></div>
+    <p class="small" style="text-align:center">${title}</p>
+    <p>${msg}</p>
+    <div class="scorebar">
+      <div class="sb g"><span class="n">${good}</span><span class="l">EXCELENTES</span></div>
+      <div class="sb m"><span class="n">${mid}</span><span class="l">REGULARES</span></div>
+      <div class="sb b"><span class="n">${bad}</span><span class="l">FLOJAS</span></div>
     </div>
-
-    <h2 style="font-size:17px;margin:18px 0 6px">Tu desempeño por tema</h2>
-    <div class="cat-result">${catRows}</div>
-
+    <h2 class="title sm">Desempeño por tema</h2>
+    <div class="cats">${cats}</div>
     <div class="tips">
-      <h3>📌 Reglas de oro (basadas en lo que evalúan los oficiales)</h3>
+      <h3>★ REGLAS DE ORO</h3>
       <ul>
-        <li><b>Respuestas cortas y directas.</b> La entrevista dura 3–5 min; responde solo lo que te preguntan.</li>
-        <li><b>Demuestra que vas a volver.</b> Es la razón #1 de negaciones: muestra varios lazos (empleo, familia, estudios, bienes).</li>
-        <li><b>Nunca mientas.</b> Sobre tu mamá, sobre negaciones previas, sobre nada. Todo está en su sistema y debe coincidir con tu DS-160.</li>
-        <li><b>Evita palabras peligrosas:</b> "oportunidades", "quedarme", "ver cómo me va", "tal vez", "buscar trabajo".</li>
-        <li><b>Estrategia con tu mamá:</b> puedes enfocar tu respuesta en el Mundial y no mencionarla por iniciativa propia. Pero si te preguntan directo por familia en EE.UU., <b>di la verdad</b> y recálcalo a tu favor: tu familia respeta las reglas y regresa.</li>
-        <li><b>Lleva la carpeta lista:</b> carta de invitación, estados de cuenta, carta laboral y vuelo de ida y vuelta.</li>
-        <li><b>Mira a los ojos, habla con calma.</b> Si no entiendes algo, pide que te lo repitan sin pena.</li>
+        <li>Respuestas <b>cortas y directas</b>. Responde solo lo que te preguntan.</li>
+        <li>Demuestra que <b>vas a volver</b>: trabajo (UTP), familia, carro. Varios lazos, no uno.</li>
+        <li><b>Nunca mientas.</b> Todo está en su sistema y debe coincidir con tu DS-160.</li>
+        <li>La <b>coartada del Mundial</b> solo sirve si es real: lleva tus entradas.</li>
+        <li>Con tu <b>mamá</b>: no la menciones tú; pero si te preguntan, di la verdad y reafirma que regresas.</li>
+        <li>Evita: "oportunidades", "quedarme", "ver cómo me va", "tal vez".</li>
       </ul>
     </div>
-
-    <div class="btn-row">
-      <button class="btn gold" onclick="startInterview()">Practicar otra vez (preguntas nuevas) →</button>
-      <button class="btn ghost" onclick="goEmbassy()">Cambiar duración</button>
-      <button class="btn ghost" onclick="screenIntro()">Inicio</button>
+    <div class="row">
+      <button class="btn green sm" onclick="startInterview()">JUGAR OTRA VEZ ▶</button>
+      <button class="btn sm" onclick="goEmbassy()">CAMBIAR LARGO</button>
+      <button class="btn sm" onclick="screenIntro()">INICIO</button>
     </div>
   `);
 }
 
-/* Atajos de teclado: 1/2/3 para elegir opción, Enter para siguiente */
 document.addEventListener("keydown",e=>{
-  if(["1","2","3"].includes(e.key) && STATE.mode==="easy" && !STATE.answered){
-    const btn=document.querySelector(`.option[data-i="${+e.key-1}"]`);
-    if(btn) btn.click();
+  if(["1","2","3"].includes(e.key)&&STATE.mode==="easy"&&!STATE.answered){
+    const b=document.querySelector(`.opt[data-i="${+e.key-1}"]`);if(b)b.click();
   }
-  if(e.key==="Enter" && STATE.answered){
-    const next=document.querySelector("#navArea .btn.gold");
-    if(next) next.click();
-  }
+  if(e.key==="Enter"&&STATE.answered){const n=document.querySelector("#nav .btn.go");if(n)n.click();}
 });
 
-/* Arranque */
 screenIntro();
 </script>
 </body>
