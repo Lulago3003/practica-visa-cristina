@@ -254,7 +254,7 @@ const PROFILE = {
   nombre:"Cristina", pais:"Panamá", ciudadOrigen:"La Chorrera",
   ocupacion:"la UTP en Panamá Pacífico", tiempoOcup:"",
   visita:"mi mamá", ciudadUS:"Nueva Jersey", duracion:"",
-  alojamiento:"", pago:"", vivesCon:"mi abuela y mi tío"
+  alojamiento:"en casa de la pareja de mi mamá", pago:"", vivesCon:"mi abuela y mi tío"
 };
 const FALLBACK = {
   nombre:"Cristina", pais:"Panamá", ciudadOrigen:"La Chorrera",
@@ -275,17 +275,17 @@ function spriteSVG(rects,size,cssw){
 }
 /* Cristina (bust 24x24). cMain/cShad = color del outfit */
 function cristinaSVG(cMain,cShad,cssw){
-  const hair="#5a361f",hairD="#3f2613",skin="#f1cba4",skinS="#e0b78d",eye="#2b1a12",
-        mouth="#c2705c",blush="#ec9f8b",collar="#f7f0e2";
+  const hair="#1d130d",hairD="#2a1810",skin="#6e4327",skinS="#54331d",eye="#140c08",
+        scl="#f1e8d6",mouth="#8a463a",collar="#f7f0e2";
   const r=[
     [7,1,10,2,hair],[6,2,12,1,hair],
     [5,3,14,13,hair],[4,5,1,9,hair],[19,5,1,9,hair],
     [7,5,10,11,skin],[7,5,1,11,skinS],[16,5,1,11,skinS],
     [6,4,12,2,hair],[6,6,2,3,hair],[16,6,2,3,hair],
     [9,8,2,1,hairD],[13,8,2,1,hairD],
-    [9,9,2,2,eye],[13,9,2,2,eye],[10,9,1,1,"#5a4a44"],[14,9,1,1,"#5a4a44"],
+    [9,9,2,2,scl],[13,9,2,2,scl],
+    [10,9,1,2,eye],[13,9,1,2,eye],
     [12,11,1,1,skinS],
-    [8,12,1,1,blush],[15,12,1,1,blush],
     [10,13,4,1,mouth],[9,13,1,1,mouth],[14,13,1,1,mouth],
     [11,16,3,2,skin],
     [4,19,16,5,cMain],[4,19,16,1,cShad],
@@ -380,14 +380,25 @@ const QUESTIONS = [
   ]},
 { cat:"alojamiento", key:true,
   q:"¿Dónde se va a quedar?",
-  keywords:["casa","amiga","hotel","dirección","direccion","quedo"],
+  keywords:["casa","dirección","direccion","quedo","pareja","invitación","invitacion"],
   options:[
-    {text:"{alojamiento}, tengo la dirección y carta de invitación.", rating:"good",
-     feedback:"Lugar específico, relación clara y documentos listos. Excelente."},
-    {text:"En casa de {visita}.", rating:"mid",
-     feedback:"Si tu coartada es el Mundial, decir que te quedas en casa de tu mamá conecta los puntos hacia 'inmigración'. Si de verdad te quedas con ella, dilo con calma pero refuerza que regresas."},
+    {text:"{alojamiento}, en {ciudadUS}. Tengo la dirección y la carta de invitación.", rating:"good",
+     feedback:"Es la verdad: dila con calma y ten la dirección + carta de invitación listas. Luego reafirma que es solo por la visita y que regresas."},
+    {text:"En casa de alguien que conocí por internet.", rating:"bad",
+     feedback:"Quedarte con un casi-desconocido enciende alarmas. Tu caso real es mejor: una persona conocida de tu familia."},
     {text:"Todavía no lo decidimos bien.", rating:"bad",
      feedback:"Sin lugar definido = sospechoso. Debes saber exactamente dónde vas a dormir."}
+  ]},
+{ cat:"alojamiento", key:true, tricky:true,
+  q:"¿Y quién es la persona en cuya casa se va a quedar?",
+  keywords:["pareja","mamá","mama","conozco","invitada","temporal","regreso","unos días"],
+  options:[
+    {text:"Es la pareja de mi mamá. Me reciben unos días como invitada y luego regreso a {pais}.", rating:"good",
+     feedback:"Te preguntan directo: toca la verdad. Admítelo con naturalidad y al instante reafirma que es temporal y que regresas. Honestidad + ancla."},
+    {text:"Un amigo de la familia, nada más.", rating:"mid",
+     feedback:"Es una verdad a medias. Si indagan y ven que es la pareja de tu mamá, parecerá que ocultabas algo. Mejor sé clara y compensa con tus lazos en Panamá."},
+    {text:"Prefiero no dar detalles de eso.", rating:"bad",
+     feedback:"Evadir sobre con quién te quedas es muy mala señal. Responde claro: la pareja de mi mamá; y refuerza que regresas."}
   ]},
 { cat:"alojamiento",
   q:"¿Me da la dirección donde se hospedará?",
@@ -698,6 +709,7 @@ function showOutfitNote(){
 const DOCS=[
   "<b>Pasaporte</b> + confirmación del <b>DS-160</b>",
   "<b>Entradas del Mundial 2026</b> (¡tu coartada!)",
+  "<b>Carta de invitación</b> de tu anfitrión en EE.UU.",
   "<b>Carta de la UTP</b> (empleo + permiso)",
   "<b>Estados de cuenta</b> y ahorros",
   "<b>Título del carro</b> a tu nombre",
