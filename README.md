@@ -2,6 +2,12 @@
 
 Juego interactivo para practicar la entrevista de visa americana de turista (B1/B2), basado en **preguntas reales** de entrevistas consulares.
 
+## ▶️ Jugar ahora (link para Cristina)
+
+**https://lulago3003.github.io/practica-visa-cristina/**
+
+Ábrelo en el celular o computador. No necesita instalar nada.
+
 ## 🚀 Cómo subirlo a GitHub y compartirlo
 
 1. Crea un repo nuevo en GitHub (ej: `practica-visa-cristina`). Que sea **público**.
